@@ -34,11 +34,23 @@ $app-direction: ltr;
 // The "primary" color is the only required color in the map.
 
 $colors: (
-  primary:    #488aff,
+  primary:    #3da36c,
   secondary:  #32db64,
   danger:     #f53d3d,
   light:      #f4f4f4,
-  dark:       #222
+  dark:       #222,
+  energy:       #f2b632,
+  bg-homecolor: #1ebe67,
+  bg-homecolor-dark: #3da36c,
+  bg-primary:   #007bff, //blue
+  bg-secondary: #868e96, //gray
+  bg-success:   #28a745, //green
+  bg-danger:    #dc3545, //red
+  bg-warning:   #ffc107, //yellow
+  bg-info:      #17a2b8, //bluewater
+  bg-light:     #f8f9fa, //light
+  bg-dark:      #343a40, //dark
+  bg-white:     #ffffff  //white
 );
 
 
@@ -86,3 +98,27 @@ $colors: (
 
 @import "roboto";
 @import "noto-sans";
+
+@font-face {
+  font-family: Karla-Regular;
+  font-style: normal;
+  src: url('../assets/fonts/Karla-Regular.ttf');
+}
+
+@font-face {
+  font-family: Karla-Bold;
+  font-style: semi-bold;
+  src: url('../assets/fonts/Karla-Bold.ttf');
+}
+
+@font-face {
+  font-family: Karla-Italic;
+  font-style: italic;
+  src: url('../assets/fonts/Karla-Italic.ttf');
+}
+
+@font-face {
+  font-family: Karla-BoldItalic;
+  font-style: normal;
+  src: url('../assets/fonts/Karla-BoldItalic.ttf');
+}

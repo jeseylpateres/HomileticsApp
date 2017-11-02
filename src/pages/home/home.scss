@@ -1,3 +1,95 @@
 page-home {
-
-}
+    
+        .study-summary {
+            border: 0px;
+            text-align: center;
+            padding-top: 2%;
+            padding-bottom: 2%;
+            color: color($colors, bg-light);
+            background-color: color($colors, bg-homecolor);
+        }
+    
+        .text-result{
+            font-size: xx-large;
+            font-family:  Karla-Regular;
+        }
+    
+        /* Canvas Chart */
+        .chart-content {
+            width: 98%;
+        }
+        .canvas-content {
+            height: 95%;
+            overflow-x: scroll;
+            scroll-behavior: smooth;
+            padding: 25px;
+        }
+    
+        /* Ionic Segment button - horizontal line */
+        .segment-activated {
+            border-color: color($colors, bg-homecolor) !important;
+        }
+    
+        /* Ionic Segment button - text label */
+        .segment-button {
+            color: color($colors, bg-homecolor) !important;
+        }
+    
+        .segment-ios .segment-button.segment-activated {
+            background-color: transparent;
+        }
+    
+        /* div Table header */
+        .table-study-header-list{
+            text-align: center
+        }
+    
+        /* Table */
+        .table-study-head-list {
+            padding-bottom: 10px;
+        }
+    
+        .table-study-body-list {
+            height: 110px;
+            overflow-y: scroll;
+            padding-bottom: 10px;
+        }
+    
+        .ion-md-checkmark-circle-outline {
+            color: color($colors, bg-homecolor);
+        }
+    
+        .ion-md-checkmark-circle:before {
+            color: color($colors, bg-homecolor);
+        }
+    
+        .button-study{
+            padding-top : 10px;
+        }
+    
+        .bible-testament {
+            font-size: medium;
+            color: color($colors, bg-homecolor);
+        }
+    
+        .bible-title {
+            font-size: x-large;
+            padding: 5px;
+        }
+    
+        .div-study-status-detail {
+            color: #555555;
+            font-size:  small;
+        }
+    
+        .table-content{
+            padding-left: 8%;
+            padding-right: 8%;
+        }
+    
+        /* Small Devices, Tablets */
+        @media only screen and (min-width: 768px) {
+            height: 250px;
+        }
+    }
+    
