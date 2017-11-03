@@ -102,23 +102,34 @@ $colors: (
 @font-face {
   font-family: Karla-Regular;
   font-style: normal;
-  src: url('../assets/fonts/Karla-Regular.ttf');
+  font-weight: 400;
+  src: url('../assets/fonts/Karla/Karla-Regular.ttf');
 }
 
 @font-face {
   font-family: Karla-Bold;
   font-style: semi-bold;
-  src: url('../assets/fonts/Karla-Bold.ttf');
+  font-weight: 600;
+  src: url('../assets/fonts/Karla/Karla-Bold.ttf');
 }
 
 @font-face {
   font-family: Karla-Italic;
   font-style: italic;
-  src: url('../assets/fonts/Karla-Italic.ttf');
+  font-weight: 700;
+  src: url('../assets/fonts/Karla/Karla-Italic.ttf');
 }
 
 @font-face {
   font-family: Karla-BoldItalic;
   font-style: normal;
-  src: url('../assets/fonts/Karla-BoldItalic.ttf');
+  font-weight: 800;
+  src: url('../assets/fonts/Karla/Karla-BoldItalic.ttf');
 }
+
+
+/*
+@import '../assets/fonts/Karla/Karla-Regular.ttf';
+@import '../assets/fonts/Karla/Karla-Bold.ttf';
+@import '../assets/fonts/Karla/Karla-Italic.ttf';
+@import '../assets/fonts/Karla/Karla-BoldItalic.ttf';*/

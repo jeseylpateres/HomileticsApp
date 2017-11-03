@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { NavController, App } from 'ionic-angular';
+import { BookType } from "../core/enums/booktype";
+
 import { MenuPage } from '../menu/menu';
+
 
 import { BibleDataService } from "../model/bible/bible-data-service";
 
@@ -14,16 +17,16 @@ export class HomePage extends BibleDataService {
 
   private User = null;
 
-  segmentbook1 : string = "entirebible";
-  completeStudies:number = 2;
-  ongoingStudies:number = 5;
+  segmentbook1: string = "entirebible";
+  completeStudies: number = 2;
+  ongoingStudies: number = 5;
   quizes: number = 0;
   totalStudies: number = 0;
   percentageCompletion: number = 0;
   bibleTestament: string;
-  bibleTitleForONT: string = this.getTitleByIdForOldAndNewTestament(0);
-  bibleTitleForOT: string =  this.getTitleByIdForOldTestament(0);
-  bibleTitleForNT: string = this.getTitleByIdForNewTestament(0);
+  bibleTitleForONT: string = this.getTitleById(0, BookType.OldAndNewTestament);
+  bibleTitleForOT: string =  this.getTitleById(0, BookType.OldTestament);
+  bibleTitleForNT: string = this.getTitleById(0, BookType.NewTestament);
   //bibleReferencesForONT: boolean[] = this.getSetOfStatusPerPerDivisions(0);
 
 
@@ -40,7 +43,10 @@ export class HomePage extends BibleDataService {
       this.User = this.bookUsers[0];
       //console.log(this.User.userEmail);
       //this.getSetOfStatusPerPerDivisions(0);
-      
+      //this.BarChartDataSetForOldAndNew = this.getAllAbbvOfOldAndNewTestament();
+
+      console.log("Jeseyl");
+      let t = this.getArrayOfVerses(BookType.OldAndNewTestament);
   }
 
 
@@ -86,15 +92,21 @@ export class HomePage extends BibleDataService {
   public BarChartDataSetForOldAndNew:any[] = [
     {
       label: 'Complete Study',
-      data: [ 
-          20, 40, 0, 10, 0, 0, 21, 0, 0, 0, 
-          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-          0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-          0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 
-          10, 2, 20, 0, 0, 0, 0, 0, 3, 0, 
-          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      data: [] = this.clearAllDataForAllChapters(BookType.OldAndNewTestament)/*[ 
+          20, 40, 0, 10, 0, 
+          0, 21, 0, 0, 0, 
+          0, 0, 0, 0, 0, 
+          0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 
+          0, 0, 0, 0, 0, 
+          0, 0, 0, 0, 0, 
+          0, 0, 0, 0, 5, 
+          10, 2, 20, 0, 0,
+          0, 0, 0, 3, 0, 
+          0, 0, 0, 0, 0, 
+          0, 0, 0, 0, 0,
           0, 1, 1, 1, 1, 1
-      ]
+      ]*/
     },
     {
       label: 'Total Chapter',
@@ -110,7 +122,7 @@ export class HomePage extends BibleDataService {
     //console.log(e);
     let x = e.active[0];
     if(x !== undefined) {
-      this.setStudy(x._index, this.BarChartDataSetForOldAndNew[0].data[x._index], this.BarChartDataSetForOldAndNew[1].data[x._index], State.OldAndNewTestament);
+      this.setStudy(x._index, this.BarChartDataSetForOldAndNew[0].data[x._index], this.BarChartDataSetForOldAndNew[1].data[x._index], BookType.OldAndNewTestament);
     }
   }
   
@@ -122,41 +134,34 @@ export class HomePage extends BibleDataService {
   
 
   public randomize(segment: number):void {
-    // Only Change 3 values
-    let data = [
-      Math.round((Math.random() * 100)%50),//GEN
-      10,//EXO
-      0,//LEV
-      Math.round((Math.random() * 100) %36),//NUM
-      0,//DEU
-      Math.round((Math.random() * 100)%24),//JOSH
-      21,//JUDG
-      4,
-      Math.round((Math.random() * 100)%20),
-      3,
-      0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-      0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 
-      10, 2, 20, 0, 0, 0, 0, 0, 3, 0, 
-      0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-      0, 1, 1, 1, 1, 1
-    ];
-    let clone = JSON.parse(JSON.stringify(this.BarChartDataSetForOldAndNew));
-    clone[0].data = data;
-    this.BarChartDataSetForOldAndNew = clone;
-    //this.BarChartDataSetForNew = clone;
-    //this.BarChartDataSetForOld = clone;
+    let clone = null;
     switch (segment) {
+      // Old and New Testament
       case 1:
-        this.bibleTestament = this.getTestamentByIdForOldAndNewTestament(0);
-        break;
+        {
+          clone = JSON.parse(JSON.stringify(this.BarChartDataSetForOldAndNew));
+          clone[0].data = this.setRandomDataForAllChapters(BookType.OldAndNewTestament);
+          this.BarChartDataSetForOldAndNew = clone;
+          break;
+        }
+      // Old Testament Only
       case 2:
-        this.bibleTestament = this.getTestamentByIdForOldTestament(0);
-        break;
+        {
+          clone = JSON.parse(JSON.stringify( this.BarChartDataSetForOld));
+          clone[0].data = this.setRandomDataForAllChapters(BookType.OldTestament);
+          this.BarChartDataSetForOld = clone;
+          break;
+        }
+      // New Testament Only
       case 3:
-        this.bibleTestament = this.getTestamentByIdForNewTestament(0);
+        {
+          clone = JSON.parse(JSON.stringify(this.BarChartDataSetForNew));
+          clone[0].data = this.setRandomDataForAllChapters(BookType.NewTestament);
+          this.BarChartDataSetForNew = clone;
+          break; 
+        }
       default:
-        break;
+      break;
     }
   }
   // ENTIRE TESTAMENT : END ===============================================
@@ -187,12 +192,12 @@ export class HomePage extends BibleDataService {
   public BarChartDataSetForOld:any[] = [
     {
       label: 'Complete Study',
-      data: [
+      data: this.clearAllDataForAllChapters(BookType.OldTestament)/*[ /*[
           20, 0, 0, 10, 0, 0, 21, 0, 0, 0,
           0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
           0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
           0, 0, 0, 0, 0, 2, 2, 2, 2
-      ]
+      ]*/
     },
     {
       label: 'Total Chapter',
@@ -214,7 +219,7 @@ export class HomePage extends BibleDataService {
       console.log(x._model.label);
       this.completeStudies = x._index;
       console.log("getBarChartLevel: " + this.BarChartLabelsForOldAndNew[x._index]);
-      this.setStudy(x._index, this.BarChartDataSetForOld[0].data[x._index], this.BarChartDataSetForOld[1].data[x._index], State.OldTestament);
+      this.setStudy(x._index, this.BarChartDataSetForOld[0].data[x._index], this.BarChartDataSetForOld[1].data[x._index], BookType.OldTestament);
     }
   }
 
@@ -250,11 +255,11 @@ export class HomePage extends BibleDataService {
   public BarChartDataSetForNew:any[] = [
     {
       label: 'Complete Study',
-      data: [
+      data: this.clearAllDataForAllChapters(BookType.NewTestament)/*[
         5, 10, 2, 20, 0, 0, 0, 0, 0, 3, 
         0, 0, 0, 0, 0, 0, 0, 0, 11, 0,
         0, 0, 0, 0, 0, 0, 10
-      ]
+      ]*/
     },
     {
       label: 'Total Chapter',
@@ -276,7 +281,7 @@ export class HomePage extends BibleDataService {
       console.log(x._model.label);
       this.completeStudies = x._index;
       console.log("getBarChartLevel: " + this.BarChartLabelsForOldAndNew[x._index]);
-      this.setStudy(x._index, this.BarChartDataSetForNew[0].data[x._index], this.BarChartDataSetForNew[1].data[x._index], State.NewTestament);
+      this.setStudy(x._index, this.BarChartDataSetForNew[0].data[x._index], this.BarChartDataSetForNew[1].data[x._index], BookType.NewTestament);
     }
   }
 
@@ -311,25 +316,27 @@ export class HomePage extends BibleDataService {
     // set book title per sergment
     switch (state) {
       case 1:
-        this.bibleTestament = this.getTestamentByIdForOldAndNewTestament(index);
-        this.bibleTitleForONT = this.getTitleByIdForOldAndNewTestament(index);
+        this.bibleTestament = this.getBookTestamentById(index, BookType.OldAndNewTestament);
+        this.bibleTitleForONT = this.getTitleById(index, BookType.OldAndNewTestament);
         break;
       case 2:
-        this.bibleTestament = this.getTestamentByIdForOldTestament(index);
-        this.bibleTitleForOT = this.getTitleByIdForOldTestament(index);
+        this.bibleTestament = this.getBookTestamentById(index, BookType.OldTestament);
+        this.bibleTitleForOT = this.getTitleById(index, BookType.OldTestament);
         break;
       case 3:
-        this.bibleTestament = this.getTestamentByIdForNewTestament(index);
-        this.bibleTitleForNT = this.getTitleByIdForNewTestament(index);
+        this.bibleTestament = this.getBookTestamentById(index, BookType.NewTestament);
+        this.bibleTitleForNT = this.getTitleById(index, BookType.NewTestament);
       default:
         break;
     }
   }
 
 }
-
-enum State {
+/**
+ * 
+enum BookType {
   OldAndNewTestament = 1,
   OldTestament = 2,
   NewTestament = 3
 }
+ */
