@@ -19,151 +19,45 @@ export class BibleDataService extends BibleData {
     setUserId(id : number) {
         this.userId = id;
     }
-    /** 
-     * Get Abbreviation of OLD and New Testament
+
+    /**
+     * Get Chapter By ID
+     * bookType = 1 : old and new testament
+     * bookType = 2 : old testament
+     * bookType = 3 : new testament
      * 
-     *  
-     * */
-
-     /**
-      * Get All Abbreviation of Old and New Testament
-      */
-    getAllAbbvOfOldAndNewTestament() : string[] {
-        let book = [];
-        for (let i in this.bookDetails) {
-            book.push(this.bookDetails[i].abbv);
+     * @param bookId 
+     * @param bookType 
+     * @returns string
+     */
+    getChapterById(bookId : number, bookType : any) : string {
+        let chapter : string = null;
+        if(bookType == 1) {
+            chapter = this.bookDetails[bookId].chapter;
         }
-        //console.log("ONT - All Abbv Result: " + book);
-        return book;
-    } 
-
-    getChapterByIdForOldAndNewTestament(id : number) : number[] {
-        return this.bookDetails[id].chapters;
-    }
-    
-    getVerseByIdForOldAndNewTestament(id : number) : number[] {
-        return this.bookDetails[id].verses;
-    }
-
-    
-
-    getAllChaptersOfOldAndNewTestament() : number[] {
-        let chapters = [];
-        for (let i in this.bookDetails) {
-            chapters.push(this.bookDetails[i].chapters);
+        if(bookType == 2) {
+            chapter = this.bookDetails[bookId].chapter;
         }
-        //console.log("ONT - All Chapter Result: " + chapters);
-        return chapters;
+        if(bookType == 3) {
+            chapter = this.bookDetails[bookId + this._totalOldBook].chapter;
+        }
+        return chapter;
     }
     
-    
-
-    getTitleByIdForOldAndNewTestament(id : number) : string {
-        return this.bookDetails[id].book;
-    }
-
-
-
-    /** 
-     * OLD Testament 
+    /**
+     * Get Title By ID
+     * bookType = 1 : old and new testament
+     * bookType = 2 : old testament
+     * bookType = 3 : new testament
      * 
-     * 
-     * 
-     * */
-
-    getAllAbbvOfOldTestament() : string[] {
-        let book = [];
-        for(let i = 0; i <= (this._totalBook - 28); i++) {
-            book.push(this.bookDetails[i].abbv);
-        }
-        //console.log("OT - All Abbv Result: " + book);
-        return book;
-    }
-
-    getChapterByIdForOldTestament(id : number) : number[] {
-        return this.bookDetails[id].chapters;
-    }
-    
-    getAllChaptersOfOldTestament() : number[] {
-        let chapters = [];
-        for(let i = 0; i <= (this._totalBook - 28); i++) {
-            chapters.push(this.bookDetails[i].chapters);
-        }
-        //console.log("OT - All Chapters Result: " + chapters);
-        return chapters;
-    }
-    
-    getTitleByIdForOldTestament(id : number) : string {
-        return this.bookDetails[id].book;
-    }
-    
-
-
-    /** 
-     * NEW Testament 
-     * 
-     * 
-     * */
-
-    getAllAbbvOfNewTestament() : string[] {
-        let book = [];
-        for(let i = this._totalOldBook; i <= (this._totalBook -1); i++) {
-            book.push(this.bookDetails[i].abbv);
-        }
-        //console.log("NT - All Abbv Result: " + book);
-        return book;
-    }
-    
-    getChapterByIdForNewTestament(id : number) : number[] {
-        return this.bookDetails[id].chapters;
-    }
-    
-    getAllChaptersOfNewTestament() : number[] {
-        let chapters = [];
-        for(let i = this._totalOldBook; i <= (this._totalBook -1); i++) {
-            chapters.push(this.bookDetails[i].chapters);
-        }
-        //console.log("NT - All Chapters Result: " + chapters);
-        return chapters;
-    }
-
-    getArrayOfVerses(bookType : any) : number[] {
-        let verses = [];
-        switch (bookType) {
-            // Old and New Testament Only
-            case 1:
-                {
-                    for(let i = 0; i <= (this._totalBook -1); i++) {
-                        verses.push(this.bookDetails[i].verses);
-                    }
-                }
-                break;
-            // Old Testament Only
-            case 2:
-                {
-                    for(let i = 0; i <= (this._totalBook - 28); i++) {
-                        verses.push(this.bookDetails[i].verses);
-                    }
-                }
-                break;
-            // New Testament Only
-            case 3:
-                {
-                    for(let i = this._totalOldBook; i <= (this._totalBook -1); i++) {
-                        verses.push(this.bookDetails[i].verses);
-                    }
-                }
-                break;
-        
-            default:
-                break;
-        }
-        console.log(verses);
-        return verses;
-    }
-    
+     * @param bookId 
+     * @param bookType 
+     * @returns string
+     */
     getTitleById(bookId : number, bookType : any) : string {
+        
         let title : string = null;
+
         if(bookType == 1) {
             title = this.bookDetails[bookId].book;
         }
@@ -173,11 +67,186 @@ export class BibleDataService extends BibleData {
         if(bookType == 3) {
             title = this.bookDetails[bookId + this._totalOldBook].book;
         }
+
         return title;
     }
+    
+        
+    /**
+     * Get Book Testament Per ID
+     * bookType = 1 : old and new testament
+     * bookType = 2 : old testament
+     * bookType = 3 : new testament
+     * 
+     * @param bookId 
+     * @param bookType 
+     * @return string
+     */
+    getBookTestamentById(bookId : number, bookType : any) : string {
 
+        let testament : string;
+
+        if(bookType == 1) {
+            testament = this.bookDetails[bookId].testament;
+        }
+        if(bookType == 2) {
+            if(bookId >= this._totalOldBook) {
+                return "Error: Input valid bookId for Old Testament.";
+            }
+            testament = this.bookDetails[bookId].testament;
+        }
+        if(bookType == 3) {
+            testament =  this.bookDetails[bookId + this._totalOldBook].testament;
+        }
+
+        console.log("getTestamentById" + testament);
+        return testament;
+    }
+
+    /**
+     * Get All Book Title Abbreviation
+     * bookType = 1 : old and new testament
+     * bookType = 2 : old testament
+     * bookType = 3 : new testament
+     * 
+     * @param bookType 
+     * @returns String[]
+     */
+    getAllAbbreviationOfBook(bookType : any) : string[]{
+
+        let abbv = [];
+
+        switch (bookType) {
+            case 1:
+                {
+                    for(let i = 0; i <= (this._totalBook -1); i++) {
+                        abbv.push(this.bookDetails[i].abbv);
+                    }
+                }
+                break;
+            case 2:
+                {
+                    for(let i = 0; i <= (this._totalBook - 28); i++) {
+                        abbv.push(this.bookDetails[i].abbv);
+                    }
+                }
+                break;
+            case 3:
+                {
+                    for(let i = this._totalOldBook; i <= (this._totalBook -1); i++) {
+                        abbv.push(this.bookDetails[i].abbv);
+                    }
+                }
+                break;
+        
+            default:
+                break;
+        }
+
+        //console.log("Abbrev: "+abbv);
+        return abbv;
+    }
+
+    /**
+     * Get All Chapter of the Book
+     * bookType = 1 : old and new testament
+     * bookType = 2 : old testament
+     * bookType = 3 : new testament
+     * 
+     * @param bookType 
+     * @returns number[]
+     */
+    getAllChapters(bookType : any) : number[] {
+
+        let chapters = [];
+
+        switch (bookType) {
+            case 1:
+                {
+                    for(let i = 0; i <= (this._totalBook -1); i++) {
+                        chapters.push(this.bookDetails[i].chapters);
+                    }
+                }
+                break;
+            case 2:
+                {
+                    for(let i = 0; i <= (this._totalBook - 28); i++) {
+                        chapters.push(this.bookDetails[i].chapters);
+                    }
+                }
+                break;
+            case 3:
+                {
+                    for(let i = this._totalOldBook; i <= (this._totalBook -1); i++) {
+                        chapters.push(this.bookDetails[i].chapters);
+                    }
+                }
+                break;
+        
+            default:
+                break;
+        }
+        
+        //console.log("chapter: "+chapters);
+        return chapters;
+    }
+
+    /**
+     * Get all Verses of the Book
+     * bookType = 1 : old and new testament
+     * bookType = 2 : old testament
+     * bookType = 3 : new testament
+     * 
+     * @param bookType 
+     * @returns number[]
+     */
+    getAllVersesInArray(bookType : any) : number[] {
+
+        let verses = [];
+
+        switch (bookType) {
+            case 1:
+                {
+                    for(let i = 0; i <= (this._totalBook -1); i++) {
+                        verses.push(this.bookDetails[i].verses);
+                    }
+                }
+                break;
+            case 2:
+                {
+                    for(let i = 0; i <= (this._totalBook - 28); i++) {
+                        verses.push(this.bookDetails[i].verses);
+                    }
+                }
+                break;
+            case 3:
+                {
+                    for(let i = this._totalOldBook; i <= (this._totalBook -1); i++) {
+                        verses.push(this.bookDetails[i].verses);
+                    }
+                }
+                break;
+            default:
+                break;
+        }
+
+        console.log(verses);
+        return verses;
+    }
+
+    /**
+     * Get all Title of the Book
+     * bookType = 1 : old and new testament
+     * bookType = 2 : old testament
+     * bookType = 3 : new testament
+     * 
+     * @param bookType 
+     * @returns number[]
+     */
     getAllTitle(bookType : any) : number[] {
+
         let title = [];
+
         switch (bookType) {
             // Old and New Testament Only
             case 1:
@@ -187,7 +256,6 @@ export class BibleDataService extends BibleData {
                     }
                 }
                 break;
-            // Old Testament Only
             case 2:
                 {
                     for(let i = 0; i <= (this._totalBook - 28); i++) {
@@ -195,7 +263,6 @@ export class BibleDataService extends BibleData {
                     }
                 }
                 break;
-            // New Testament Only
             case 3:
                 {
                     for(let i = this._totalOldBook; i <= (this._totalBook -1); i++) {
@@ -207,79 +274,87 @@ export class BibleDataService extends BibleData {
             default:
                 break;
         }
+
         console.log(title);
         return title;
     }
 
+    /**
+     * Clear All Data for all Chapters
+     * bookType = 1 : old and new testament
+     * bookType = 2 : old testament
+     * bookType = 3 : new testament
+     * 
+     * @param bookType 
+     * @returns number[]
+     */
     clearAllDataForAllChapters(bookType : any) : number[] {
+
         return this.pushData(bookType, this._empty);
     }
 
-    pushData(bookType : any, data : any) : any[] {
-        let value = [];
+    /**
+     * Push Data per BookType
+     * bookType = 1 : old and new testament
+     * bookType = 2 : old testament
+     * bookType = 3 : new testament
+     * 
+     * @param bookType 
+     * @param data 
+     */
+    pushData(bookType : any, value : any) : any[] {
+
+        let key = [];
+
         switch (bookType) {
-            // Old and New 
             case 1:
                 {
                     for (let i in this.bookDetails) {
-                        value.push(data);
+                        key.push(value);
                     }
-                    console.log("OUTPUT: Old and New Testament");
-                    break;
+                    //console.log("OUTPUT: Old and New Testament");
                 }
-           // Old Testament Only
+                break;
             case 2:
                 {
                     for(let i = 0; i <= (this._totalBook - 28); i++) {
-                        value.push(data);
+                        key.push(value);
                     }
-                    console.log("OUTPUT: Old Testament");
-                    break;
+                    //console.log("OUTPUT: Old Testament");
                 }
-            // New Testament Only
+                break;
             case 3:
                 {
                     for(let i = this._totalOldBook; i <= (this._totalBook -1); i++) {
-                        value.push(data);
+                        key.push(value);
                     }
-                    console.log("OUTPUT: New Testament");
-                    break;
+                    //console.log("OUTPUT: New Testament");
                 }
+                break;
             default:
                 break;
         }
-        console.log("PUSH DATA: "+ value);
-        return value;
-    }
 
-    
-
-    getBookTestamentById(bookId : number, bookType : any) {
-        let testament : string;
-        if(bookType == 1) {
-            testament = this.bookDetails[bookId].testament;
-        }
-        if(bookType == 2) {
-            testament = this.bookDetails[bookId].testament;
-        }
-        if(bookType == 3) {
-            testament =  this.bookDetails[bookId + this._totalOldBook].testament;
-        }
-        console.log("getTestamentById" + testament);
-        return testament;
+        //console.log("PUSH DATA: "+ key);
+        return key;
     }
     
 
     /**
-     * Random Data for Old and New
+     * Random Data for all BookType
+     * bookType = 1 : old and new testament
+     * bookType = 2 : old testament
+     * bookType = 3 : new testament
+     * 
+     * @param bookType
+     * @returns number
      */
     setRandomDataForAllChapters(bookType : any) : number[] {
+
         let chapter = [];
         let random_data = Math.round(Math.random() * 100);
 
         switch (bookType) {
-            
-            // Old and New Testament
             case 1:
                 {
                     for (let i in this.bookDetails) {
@@ -287,7 +362,6 @@ export class BibleDataService extends BibleData {
                     }
                     break;
                 }
-            // Old Testament Only
             case 2:
                 {
                     for(let i = 0; i <= (this._totalBook - 28); i++) {
@@ -295,7 +369,6 @@ export class BibleDataService extends BibleData {
                     }
                     break;
                 }
-            // New Testament Only
             case 3:
                 {
                     for(let i = this._totalOldBook; i <= (this._totalBook -1); i++) {
@@ -307,7 +380,6 @@ export class BibleDataService extends BibleData {
                 break;
         }
         
-
         console.log("Random Result: " + chapter);
         return chapter;
     }
@@ -316,10 +388,11 @@ export class BibleDataService extends BibleData {
 
     
     /**
-     * --
-     * --
-     * --
+     * ==================================================
+     * ==================================================
      * Mock User Data
+     * ==================================================
+     * ==================================================
      */
     public getAllUserId() : string[] {
         let user = [];
