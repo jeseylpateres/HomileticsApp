@@ -1,0 +1,52 @@
+<ion-content padding id="login">
+  <ion-grid>
+    <ion-row>
+      <ion-col col-1></ion-col>
+      <ion-col center text-center col-10>
+        <img src="assets/imgs/logo.png" class="logo" />
+        <h2>study made fun</h2>
+      </ion-col>
+      <ion-col col-1></ion-col>
+    </ion-row>
+  </ion-grid>
+
+
+  <!--<form [ngFormModel]="authForm" (ngSubmit)="onSubmit(authForm.value)">-->
+  <ion-grid>
+    <ion-row>
+      <ion-col col-1></ion-col>
+      <ion-col center text-center col-10>
+        <ion-item>
+          <ion-label stacked>Email</ion-label>
+          <ion-input text="text" value="" id="email"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label stacked>Password</ion-label>
+          <ion-input type="password" value="" id="password"></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col col-1></ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-1></ion-col>
+      <ion-col center text-center col-10>
+        <button ion-button block color="bg-homecolor" (click)="login()">Log in</button>
+      </ion-col>
+      <ion-col col-1></ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-1></ion-col>
+      <ion-col center text-center col-10>
+        <ion-list no-lines>
+          No account yet?
+          <label stack item-center style="color: #1ebe67" (click)="signup()">Sign up</label>
+        </ion-list>
+        <ion-list>
+          <ion-label stacked color="bg-homecolor" (click)="forgotpassword()">Forgot Password?</ion-label>
+        </ion-list>
+      </ion-col>
+      <ion-col col-1></ion-col>
+    </ion-row>
+  </ion-grid>
+  <!--</form>-->
+</ion-content>

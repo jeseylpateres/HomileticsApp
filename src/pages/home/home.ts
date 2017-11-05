@@ -1,50 +1,46 @@
 import { Component, OnInit } from '@angular/core';
-import { FormsModule } from "@angular/forms";
 import { NavController, App } from 'ionic-angular';
 
 import { BookType } from "../core/enums/booktype";
-import { Dashboard } from "../model/dashboard/dashboard-model";
+import { BibleService } from "./bible.service";
+import { User } from "../model/user/user";
+import { HomeModel } from "./home-model";
 import { MenuPage } from '../menu/menu';
-
-import { BibleDataService } from "../model/bible/bible-data-service";
-
 
 
 @Component({
   selector: 'page-home',
-  templateUrl: 'home.html'
+  templateUrl: 'home.html',
+  providers: [BibleService]
 })
-export class HomePage extends BibleDataService implements OnInit {
+export class HomePage implements OnInit {
 
-  dashboard : Dashboard;
   SegmentBookType: string;
+  homeModel: HomeModel;
 
-  constructor(public navCtrl: NavController, public app: App) {
-      super();
-      this.dashboard = new Dashboard();
-
-      let userid = 0;
-      this.setUserId(userid);
+  constructor(public navCtrl: NavController, public app: App, private bibleService: BibleService) {
+    this.homeModel = new HomeModel();
+    this.SegmentBookType = "entirebible";
   }
+
 
   ngOnInit() {
-    this.SegmentBookType = "entirebible";
-/*
-    this.dashboard.completeStudies = 0;
-    this.dashboard.ongoingStudies = 0;
-    this.dashboard.ongoingQuizes = 0;
-    this.dashboard.bookTestament = null;
-    this.dashboard.bookTitle = null;
-    this.dashboard.bookTotalStudies = 0;
-    this.dashboard.percentageCompletion = 0;
-    */
+
+    this.homeModel.completeStudies = 0;
+    this.homeModel.ongoingStudies = 0;
+    this.homeModel.ongoingQuizes = 0;
+    this.homeModel.bookTestament = this.bibleService.getBookTestamentById(0, BookType.OldAndNewTestament);
+    this.homeModel.bookTitle = this.bibleService.getTitleById(0, BookType.OldAndNewTestament);
+    this.homeModel.bookTotalStudies = 0;
+    this.homeModel.percentageCompletion = 0;
+
   }
-  
-  private menu(){
+
+  private menu() {
     //this.navCtrl.push(MenuPage);
     console.log("Study Page");
   }
-  
+
 
   /**
    * [PUBLIC]
@@ -52,57 +48,63 @@ export class HomePage extends BibleDataService implements OnInit {
    * 
    * @param segment 
    */
-  public randomize(segment: number):void {
+  public randomize(segment: number): void {
     let clone = null;
     switch (segment) {
       // Old & New Testament
       case 1:
         {
           this.setStudy(
-            0, 
-            this.DashboardChart.chartDataPerBookType[0].chartDataSet[0].data[0], 
-            this.DashboardChart.chartDataPerBookType[0].chartDataSet[1].data[0], 
+            0,
+            this.DashboardChart.chartDataPerBookType[0].chartDataSet[0].data[0],
+            this.DashboardChart.chartDataPerBookType[0].chartDataSet[1].data[0],
             BookType.OldAndNewTestament);
 
           clone = JSON.parse(JSON.stringify(this.DashboardChart.chartDataPerBookType[0].chartDataSet));
-          clone[0].data = this.setRandomDataForAllChapters(BookType.OldAndNewTestament);
+          clone[0].data = this.bibleService.setRandomDataForAllChapters(BookType.OldAndNewTestament);
           this.DashboardChart.chartDataPerBookType[0].chartDataSet = clone;
+
+          this.generateStudyComputation(this.bibleService.getIndexData(), this.DashboardChart.chartDataPerBookType[0].chartDataSet[1].data[0]);
         }
         break;
       // Old Testament Only
       case 2:
         {
           this.setStudy(
-            0, 
-            this.DashboardChart.chartDataPerBookType[0].chartDataSet[0].data[0], 
-            this.DashboardChart.chartDataPerBookType[0].chartDataSet[1].data[0], 
+            0,
+            this.DashboardChart.chartDataPerBookType[0].chartDataSet[0].data[0],
+            this.DashboardChart.chartDataPerBookType[0].chartDataSet[1].data[0],
             BookType.OldTestament);
 
           clone = JSON.parse(JSON.stringify(this.DashboardChart.chartDataPerBookType[1].chartDataSet));
-          clone[0].data = this.setRandomDataForAllChapters(BookType.OldTestament);
+          clone[0].data = this.bibleService.setRandomDataForAllChapters(BookType.OldTestament);
           this.DashboardChart.chartDataPerBookType[1].chartDataSet = clone;
+
+          this.generateStudyComputation(this.bibleService.getIndexData(), this.DashboardChart.chartDataPerBookType[0].chartDataSet[1].data[0]);
         }
         break;
       // New Testament Only
       case 3:
         {
           this.setStudy(
-            0, 
-            this.DashboardChart.chartDataPerBookType[0].chartDataSet[0].data[0], 
-            this.DashboardChart.chartDataPerBookType[0].chartDataSet[1].data[0], 
+            0,
+            this.DashboardChart.chartDataPerBookType[0].chartDataSet[0].data[0],
+            this.DashboardChart.chartDataPerBookType[0].chartDataSet[1].data[0],
             BookType.NewTestament);
-          
+
           clone = JSON.parse(JSON.stringify(this.DashboardChart.chartDataPerBookType[2].chartDataSet));
-          clone[0].data = this.setRandomDataForAllChapters(BookType.NewTestament);
+          clone[0].data = this.bibleService.setRandomDataForAllChapters(BookType.NewTestament);
           this.DashboardChart.chartDataPerBookType[2].chartDataSet = clone;
+
+          this.generateStudyComputation(this.bibleService.getIndexData(), this.DashboardChart.chartDataPerBookType[0].chartDataSet[1].data[0]);
         }
-        break; 
-        
+        break;
+
       default:
         break;
     }
   }
-  
+
 
   /**
    * [EVENTS] Click
@@ -110,26 +112,26 @@ export class HomePage extends BibleDataService implements OnInit {
    * 
    * @param e 
    */
-  public clickChartForOldAndNew(e:any) : void {
+  public clickChartForOldAndNew(e: any): void {
     //console.log(e);
     let x = e.active[0];
-    if(x !== undefined) {
+    if (x !== undefined) {
       console.log("Bar Index: " + x._index);
       this.setStudy(
-          x._index, 
-          this.DashboardChart.chartDataPerBookType[0].chartDataSet[0].data[x._index], 
-          this.DashboardChart.chartDataPerBookType[0].chartDataSet[1].data[x._index], 
-          BookType.OldAndNewTestament);
+        x._index,
+        this.DashboardChart.chartDataPerBookType[0].chartDataSet[0].data[x._index],
+        this.DashboardChart.chartDataPerBookType[0].chartDataSet[1].data[x._index],
+        BookType.OldAndNewTestament);
     }
   }
-  
+
   /**
    * [EVENTS] However
    * OLD and NEW Testament
    * 
    * @param e 
    */
-  public howeveredChartForOldAndNew(e:any):void {
+  public howeveredChartForOldAndNew(e: any): void {
     console.log("HowverResult: " + e);
   }
 
@@ -141,16 +143,16 @@ export class HomePage extends BibleDataService implements OnInit {
    * 
    * @param e 
    */
-  public clickChartForOld(e:any):void {
+  public clickChartForOld(e: any): void {
     console.log(e);
-    
-    let x= e.active[0];
-    if(x !== undefined) {
+
+    let x = e.active[0];
+    if (x !== undefined) {
       console.log("Bar Index: " + x._index);
       this.setStudy(
-        x._index, 
-        this.DashboardChart.chartDataPerBookType[1].chartDataSet[0].data[x._index], 
-        this.DashboardChart.chartDataPerBookType[1].chartDataSet[1].data[x._index], 
+        x._index,
+        this.DashboardChart.chartDataPerBookType[1].chartDataSet[0].data[x._index],
+        this.DashboardChart.chartDataPerBookType[1].chartDataSet[1].data[x._index],
         BookType.OldTestament);
     }
   }
@@ -161,10 +163,10 @@ export class HomePage extends BibleDataService implements OnInit {
    * 
    * @param e 
    */
-  public howeveredChartForOld(e:any):void {
+  public howeveredChartForOld(e: any): void {
     console.log("HowverResult: " + e);
   }
-  
+
 
   /**
    * [EVENTS] Click
@@ -172,16 +174,16 @@ export class HomePage extends BibleDataService implements OnInit {
    * 
    * @param e 
    */
-  public clickChartForNew(e:any):void {
+  public clickChartForNew(e: any): void {
     console.log(e);
-    
-    let x= e.active[0];
-    if(x !== undefined) {
+
+    let x = e.active[0];
+    if (x !== undefined) {
       console.log("Bar Index: " + x._index);
       this.setStudy(
-        x._index, 
-        this.DashboardChart.chartDataPerBookType[2].chartDataSet[0].data[x._index], 
-        this.DashboardChart.chartDataPerBookType[2].chartDataSet[1].data[x._index], 
+        x._index,
+        this.DashboardChart.chartDataPerBookType[2].chartDataSet[0].data[x._index],
+        this.DashboardChart.chartDataPerBookType[2].chartDataSet[1].data[x._index],
         BookType.NewTestament);
     }
   }
@@ -192,10 +194,10 @@ export class HomePage extends BibleDataService implements OnInit {
    * 
    * @param e 
    */
-  public howeveredChartForNew(e:any):void {
+  public howeveredChartForNew(e: any): void {
     console.log("HowverResult: " + e);
   }
-  
+
   /**
    * *********************************************************************
    * *********************************************************************
@@ -203,7 +205,7 @@ export class HomePage extends BibleDataService implements OnInit {
    * *********************************************************************
    * *********************************************************************
    */
-  public DashboardChart : any = {
+  public DashboardChart: any = {
     chartType: 'bar',
     chartLegend: false,
     chartColors: [
@@ -213,8 +215,8 @@ export class HomePage extends BibleDataService implements OnInit {
       }
     ],
     // Chart Data Per BookType
-    chartDataPerBookType : [
-      
+    chartDataPerBookType: [
+
       /**
        * ----------------------------------------
        * BookType : Old and New Testament
@@ -222,36 +224,36 @@ export class HomePage extends BibleDataService implements OnInit {
        */
       {
         // Chart Options
-        chartOptions : {
-            scaleShowVerticalLines: false,    
-            responsive: false,
-            //maintainAspectRatio: true,
-            title:{
-              display : false,
-              text: 'ENTIRE BIBLE'
-            },
-            scales:{
-              xAxes:[{
-                stacked:true
-              }],
-              yAxes:[{
-                stacked:false
-              }]
-            }
+        chartOptions: {
+          scaleShowVerticalLines: false,
+          responsive: false,
+          //maintainAspectRatio: true,
+          title: {
+            display: false,
+            text: 'ENTIRE BIBLE'
           },
+          scales: {
+            xAxes: [{
+              stacked: true
+            }],
+            yAxes: [{
+              stacked: false
+            }]
+          }
+        },
         // Chart DataSet
-        chartDataSet : [
+        chartDataSet: [
           {
             label: 'Complete Study',
-            data: [] = this.clearAllDataForAllChapters(BookType.OldAndNewTestament)
+            data: [] = this.bibleService.clearAllDataForAllChapters(BookType.OldAndNewTestament)
           },
           {
             label: 'Total Chapter',
-            data: this.getAllChapters(BookType.OldAndNewTestament)
+            data: this.bibleService.getAllChapters(BookType.OldAndNewTestament)
           }
         ],
         // Chart Label
-        chartLabels : this.getAllAbbreviationOfBook(BookType.OldAndNewTestament)
+        chartLabels: this.bibleService.getAllAbbreviationOfBook(BookType.OldAndNewTestament)
       },
 
       /**
@@ -261,38 +263,38 @@ export class HomePage extends BibleDataService implements OnInit {
        */
       {
         // Chart Options
-        chartOptions : {
-            scaleShowVerticalLines: false,    
-            responsive: false,
-            //maintainAspectRatio: true,
-            title:{
-              display : false,
-              text: 'OLD TESTAMENT'
-            },
-            scales:{
-              xAxes:[{
-                stacked:true
-              }],
-              yAxes:[{
-                stacked:false
-              }]
-            }
+        chartOptions: {
+          scaleShowVerticalLines: false,
+          responsive: false,
+          //maintainAspectRatio: true,
+          title: {
+            display: false,
+            text: 'OLD TESTAMENT'
           },
+          scales: {
+            xAxes: [{
+              stacked: true
+            }],
+            yAxes: [{
+              stacked: false
+            }]
+          }
+        },
         // Chart DataSet
-        chartDataSet : [
+        chartDataSet: [
           {
             label: 'Complete Study',
-            data: [] = this.clearAllDataForAllChapters(BookType.OldTestament)
+            data: [] = this.bibleService.clearAllDataForAllChapters(BookType.OldTestament)
           },
           {
             label: 'Total Chapter',
-            data: this.getAllChapters(BookType.OldTestament)
+            data: this.bibleService.getAllChapters(BookType.OldTestament)
           }
         ],
         // Chart Label
-        chartLabels : this.getAllAbbreviationOfBook(BookType.OldTestament)
+        chartLabels: this.bibleService.getAllAbbreviationOfBook(BookType.OldTestament)
       },
-      
+
       /**
        * ----------------------------------------
        * BookType : New Testament
@@ -300,36 +302,36 @@ export class HomePage extends BibleDataService implements OnInit {
        */
       {
         // Chart Options
-        chartOptions : {
-            scaleShowVerticalLines: false,    
-            responsive: false,
-            //maintainAspectRatio: true,
-            title:{
-              display : false,
-              text: 'NEW TESTAMENT'
-            },
-            scales:{
-              xAxes:[{
-                stacked:true
-              }],
-              yAxes:[{
-                stacked:false
-              }]
-            }
+        chartOptions: {
+          scaleShowVerticalLines: false,
+          responsive: false,
+          //maintainAspectRatio: true,
+          title: {
+            display: false,
+            text: 'NEW TESTAMENT'
           },
+          scales: {
+            xAxes: [{
+              stacked: true
+            }],
+            yAxes: [{
+              stacked: false
+            }]
+          }
+        },
         // Chart DataSet
-        chartDataSet : [
+        chartDataSet: [
           {
             label: 'Complete Study',
-            data: [] = this.clearAllDataForAllChapters(BookType.NewTestament)
+            data: [] = this.bibleService.clearAllDataForAllChapters(BookType.NewTestament)
           },
           {
             label: 'Total Chapter',
-            data: this.getAllChapters(BookType.NewTestament)
+            data: this.bibleService.getAllChapters(BookType.NewTestament)
           }
         ],
         // Chart Label
-        chartLabels : this.getAllAbbreviationOfBook(BookType.NewTestament)
+        chartLabels: this.bibleService.getAllAbbreviationOfBook(BookType.NewTestament)
       },
     ]
   };
@@ -353,28 +355,32 @@ export class HomePage extends BibleDataService implements OnInit {
    */
   private setStudy(index: number, completestudy: number, totalchapter: number, state: number) {
 
-    this.dashboard.completeStudies = completestudy;
-    this.dashboard.ongoingStudies = this.callOngoingStudy(completestudy, totalchapter);
-    this.dashboard.bookTotalStudies = totalchapter;
-    this.dashboard.percentageCompletion = this.callTotalPercentage(completestudy, totalchapter);
+    this.generateStudyComputation(completestudy, totalchapter);
 
     // set book title per sergment
     switch (state) {
       case 1:
-        this.dashboard.bookTestament = this.getBookTestamentById(index, BookType.OldAndNewTestament);
-        this.dashboard.bookTitle = this.getTitleById(index, BookType.OldAndNewTestament);
+        this.homeModel.bookTestament = this.bibleService.getBookTestamentById(index, BookType.OldAndNewTestament);
+        this.homeModel.bookTitle = this.bibleService.getTitleById(index, BookType.OldAndNewTestament);
         break;
       case 2:
-        this.dashboard.bookTestament = this.getBookTestamentById(index, BookType.OldTestament);
-        this.dashboard.bookTitle = this.getTitleById(index, BookType.OldTestament);
+        this.homeModel.bookTestament = this.bibleService.getBookTestamentById(index, BookType.OldTestament);
+        this.homeModel.bookTitle = this.bibleService.getTitleById(index, BookType.OldTestament);
         break;
       case 3:
-        this.dashboard.bookTestament = this.getBookTestamentById(index, BookType.NewTestament);
-        this.dashboard.bookTitle = this.getTitleById(index, BookType.NewTestament);
+        this.homeModel.bookTestament = this.bibleService.getBookTestamentById(index, BookType.NewTestament);
+        this.homeModel.bookTitle = this.bibleService.getTitleById(index, BookType.NewTestament);
         break;
       default:
         break;
     }
+  }
+
+  private generateStudyComputation(completestudy: number, totalchapter: number) {
+    this.homeModel.completeStudies = completestudy;
+    this.homeModel.ongoingStudies = this.calOngoingStudy(completestudy, totalchapter);
+    this.homeModel.bookTotalStudies = totalchapter;
+    this.homeModel.percentageCompletion = this.calTotalPercentage(completestudy, totalchapter);
   }
 
   /**
@@ -384,7 +390,7 @@ export class HomePage extends BibleDataService implements OnInit {
    * @param completestudy 
    * @param totalchapter 
    */
-  private callTotalPercentage(completestudy: number, totalchapter: number): number {
+  private calTotalPercentage(completestudy: number, totalchapter: number): number {
 
     let getdecimalvalue = completestudy / totalchapter;
     let percentagecompletion;
@@ -404,7 +410,7 @@ export class HomePage extends BibleDataService implements OnInit {
    * @param completestudy 
    * @param totalchapter 
    */
-  private callOngoingStudy(completestudy: number, totalchapter: number): number {
+  private calOngoingStudy(completestudy: number, totalchapter: number): number {
     return totalchapter - completestudy;
   }
 }

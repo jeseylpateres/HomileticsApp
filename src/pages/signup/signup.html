@@ -1,0 +1,46 @@
+<ion-content padding id="signup">
+  <ion-grid>
+    <ion-row>
+      <ion-col col-1></ion-col>
+      <ion-col center text-center col-10>
+        <img src="assets/imgs/logo.png" class="logo"/>
+        <h2>study made fun</h2>
+      </ion-col>
+      <ion-col col-1></ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col col-1></ion-col>
+      <ion-col center text-center col-10>
+
+        <ion-item>
+          <ion-label stacked>Name</ion-label>
+          <ion-input type="text" [(ngModel)]="userData.name"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label stacked>Email</ion-label>
+          <ion-input type="text" [(ngModel)]="userData.email"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label stacked>Password</ion-label>
+          <ion-input type="password" [(ngModel)]="userData.password"></ion-input>
+        </ion-item>
+
+      </ion-col>
+      <ion-col col-1></ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-1></ion-col>
+	     <ion-col center text-center col-10>
+  		   I agree to the <a href="#">Terms and Conditions </a>
+         <button ion-button full  color="bg-homecolor" (click)="signup()" type="submit">Sign up</button>
+         Already have an account?<ion-label stacked color="bg-homecolor" (click)="login()">Login Page</ion-label>
+         </ion-col>
+	   <ion-col col-1></ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

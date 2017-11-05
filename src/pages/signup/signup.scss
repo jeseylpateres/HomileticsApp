@@ -1,0 +1,26 @@
+page-signup {
+  #signup{
+      background: color($colors, bg-white);
+      h1{
+          font-size: 24px;
+          margin-top:75px;
+          color: color($colors, primary);
+      }
+      h2{
+          font-size: 14px;
+          margin-top:5px;
+          color: color($colors, bg-homecolor);
+      }
+      button {
+        margin-top: 15px;
+        margin-bottom: 15px;
+      }
+      .marginTop{
+          margin-top:75px;
+      }
+      .logo{
+          margin-top:75px;
+          height: 25px;
+      }
+  }
+}

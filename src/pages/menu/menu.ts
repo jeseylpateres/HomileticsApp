@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 
+import { LoginPage } from '../login/login';
 import { HomePage } from '../home/home';
 
 @Component({
@@ -19,7 +20,7 @@ export class MenuPage {
   }
 
   login(){
-    //this.navCtrl.push(LoginPage);
+    this.navCtrl.push(LoginPage);
   }
 
   others(){
