@@ -16,8 +16,8 @@ export class LoginPage {
   }
 
   login() {
-    //navCtrl.push(TabsPage, {}, {animate: false});
-    this.navCtrl.push(MenuPage);
+    this.navCtrl.push(TabsPage, {}, {animate: true});
+    //this.navCtrl.push(TabsPage);
   }
 
   signup() {

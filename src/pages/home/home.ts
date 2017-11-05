@@ -6,6 +6,7 @@ import { BibleService } from "./bible.service";
 import { User } from "../model/user/user";
 import { HomeModel } from "./home-model";
 import { MenuPage } from '../menu/menu';
+import { StudyInputPage } from '../study-input/study-input';
 
 
 @Component({
@@ -36,9 +37,8 @@ export class HomePage implements OnInit {
 
   }
 
-  private menu() {
-    //this.navCtrl.push(MenuPage);
-    console.log("Study Page");
+  private study() {
+    this.navCtrl.push(StudyInputPage);
   }
 
 
