@@ -3,6 +3,7 @@
  */
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from "@angular/forms";
 /**
  * Import Ionic
  */
@@ -34,6 +35,7 @@ import { TabsPage } from '../pages/tabs/tabs';
   imports: [
     BrowserModule,
     ChartsModule,
+    FormsModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],

@@ -5,15 +5,15 @@
         <div class="table-study-head-list">
             <ion-row>
                 <ion-col col-4>
-                  <div class="text-result">{{ completeStudies }}</div>
+                  <div class="text-result">{{ dashboard.completeStudies }}</div>
                   <div>Completed Studies</div>
                 </ion-col>
                 <ion-col col-4>
-                  <div class="text-result">{{ ongoingStudies }}</div>
+                  <div class="text-result">{{ dashboard.ongoingStudies }}</div>
                   <div>Ongoing Studies</div>
                 </ion-col>
                 <ion-col col-4>
-                  <div class="text-result">{{ quizes }}</div>
+                  <div class="text-result">{{ dashboard.ongoingQuizes }}</div>
                   <div>Quizes</div>
                 </ion-col>
             </ion-row>
@@ -66,9 +66,9 @@
             <!-- GROUP C : book content, table list -->
             <div id="entirebook-col1-row3">
                 <div class="table-study-header-list" padding>
-                    <div class="bible-testament">{{ bibleTestament | uppercase }}</div>
-                    <div class="bible-title"><strong>{{ bibleTitleForONT }}</strong></div>
-                    <div class="div-study-status-detail">{{ totalStudies }} Studies * {{ completeStudies }} Completed ({{ percentageCompletion }} %)</div>
+                    <div class="bible-testament">{{ (dashboard.bookTestament) | uppercase }}</div>
+                    <div class="bible-title"><strong>{{ dashboard.bookTitle }}</strong></div>
+                    <div class="div-study-status-detail">{{ dashboard.bookTotalStudies }} Studies * {{ dashboard.completeStudies }} Completed ({{ dashboard.percentageCompletion }} %)</div>
                 </div>
   
                 <!-- Header of Study List -->
@@ -217,9 +217,9 @@
             <!-- GROUP C : book content, table list -->
             <div id="entirebook-col1-row3">
                 <div class="table-study-header-list" padding>
-                    <div class="bible-testament">{{ bibleTestament | uppercase }}</div>
-                    <div class="bible-title"><strong>{{ bibleTitleForOT }}</strong></div>
-                    <div class="div-study-status-detail">{{ totalStudies }} Studies * {{ completeStudies }} Completed ({{ percentageCompletion }} %)</div>
+                    <div class="bible-testament">{{ (dashboard.bookTestament) | uppercase }}</div>
+                    <div class="bible-title"><strong>{{ dashboard.bookTitle }}</strong></div>
+                    <div class="div-study-status-detail">{{ dashboard.bookTotalStudies }} Studies * {{ dashboard.completeStudies }} Completed ({{ dashboard.percentageCompletion }} %)</div>
                 </div>
   
                 <!-- Header of Study List -->
@@ -371,9 +371,9 @@
             <!-- GROUP C : book content, table list -->
             <div id="entirebook-col1-row3">
                 <div class="table-study-header-list" padding>
-                    <div class="bible-testament">{{ bibleTestament | uppercase }}</div>
-                    <div class="bible-title"><strong>{{ bibleTitleForNT }}</strong></div>
-                    <div class="div-study-status-detail">{{ totalStudies }} Studies * {{ completeStudies }} Completed ({{ percentageCompletion }} %)</div>
+                    <div class="bible-testament">{{ (dashboard.bookTestament) | uppercase }}</div>
+                    <div class="bible-title"><strong>{{ dashboard.bookTitle }}</strong></div>
+                    <div class="div-study-status-detail">{{ dashboard.bookTotalStudies }} Studies * {{ dashboard.completeStudies }} Completed ({{ dashboard.percentageCompletion }} %)</div>
                 </div>
   
                 <!-- Header of Study List -->
