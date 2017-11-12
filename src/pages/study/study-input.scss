@@ -1,0 +1,17 @@
+page-study-input {
+    .study-summary {
+      border: 0px;
+      text-align: center;
+      padding-top: 2%;
+      padding-bottom: 2%;
+      color: color($colors, bg-light);
+      background-color: color($colors, bg-homecolor);
+      height: 110px;
+    }
+    
+    .text-result {
+        font-size: xx-large;
+        font-family: Karla-Regular;
+    }
+    
+}

@@ -4,6 +4,9 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from "@angular/forms";
+import { TimeAgoPipe } from "time-ago-pipe";
+//import { Ng2OrderModule } from "ng2-order-pipe";
+import { OrderModule } from 'ngx-order-pipe';
 /**
  * Import Ionic
  */
@@ -27,7 +30,10 @@ import { LoginPage } from '../pages/login/login';
 import { SignupPage } from '../pages/signup/signup';
 import { ForgotpasswordPage } from '../pages/forgotpassword/forgotpassword';
 import { MenuPage } from '../pages/menu/menu';
-import { StudyInputPage } from '../pages/study-input/study-input';
+import { StudyInputPage } from '../pages/study/study-input';
+import { StudyPreviewPage } from '../pages/study/study-preview';
+
+import { StudiesService } from "../services/studies/studies.service";
 
 
 @NgModule({
@@ -42,12 +48,22 @@ import { StudyInputPage } from '../pages/study-input/study-input';
     ForgotpasswordPage,
     MenuPage,
     StudyInputPage,
+    StudyPreviewPage,
+    TimeAgoPipe,
   ],
   imports: [
     BrowserModule,
     ChartsModule,
     FormsModule,
-    IonicModule.forRoot(MyApp)
+    OrderModule,
+    IonicModule.forRoot(MyApp, {
+      tabsPlacement: 'bottom',
+        platforms: { 
+          android: {tabsPlacement: 'bottom'},
+          ios: { tabsPlacement: 'bottom' },
+          windows: {tabsPlacement: 'bottom'}
+        }
+    })
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -61,10 +77,12 @@ import { StudyInputPage } from '../pages/study-input/study-input';
     ForgotpasswordPage,
     MenuPage,
     StudyInputPage,
+    StudyPreviewPage,
   ],
   providers: [
     StatusBar,
     SplashScreen,
+    StudiesService,
     { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })

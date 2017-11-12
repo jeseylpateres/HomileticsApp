@@ -1,12 +1,37 @@
+<ion-header>
+    <ion-navbar color="bg-dark" hideBackButton="true">
+        <ion-buttons left>
+            <button ion-button icon-only (click)="onLoadPage(90)">
+                <ion-icon name="menu"></ion-icon>
+            </button>
+        </ion-buttons>
+
+        <ion-title>
+            <ion-buttons>
+                <button ion-button icon-only (click)="onLoadPage(1)">
+                    <ion-icon name="apps"></ion-icon>
+                </button>
+            </ion-buttons>
+        </ion-title>
+
+        <ion-buttons end>
+            <button ion-button icon-only (click)="onLoadPage(2)">
+                <ion-icon name="add">
+                     <span class="menu-text"> Add Study</span>
+                </ion-icon>
+            </button>
+        </ion-buttons>
+    </ion-navbar>
+</ion-header>
 
 <ion-content padding id="menu">
   <ion-grid>
     <ion-list>
-        <button ion-item block menuToggle text-center color="bg-homecolor-dark" (click)="home()">Home</button>
-        <button ion-item block menuToggle text-center color="bg-homecolor-dark" (click)="others()">History</button>
-        <button ion-item block menuToggle text-center color="bg-homecolor-dark" (click)="others()">Profile</button>
-        <button ion-item block menuToggle text-center color="bg-homecolor-dark" (click)="others()">Settings</button>
-        <button ion-item block menuToggle text-center color="bg-homecolor-dark" (click)="login()">Logout</button>
+        <button ion-item block menuToggle text-center color="bg-homecolor-dark" (click)="onLoadPage(1)">Home</button>
+        <button ion-item block menuToggle text-center color="bg-homecolor-dark" (click)="onLoadPage(90)">History</button>
+        <button ion-item block menuToggle text-center color="bg-homecolor-dark" (click)="onLoadPage(90)">Profile</button>
+        <button ion-item block menuToggle text-center color="bg-homecolor-dark" (click)="onLoadPage(90)">Settings</button>
+        <button ion-item block menuToggle text-center color="bg-homecolor-dark" (click)="onLoadPage(91)">Logout</button>
     </ion-list>
   </ion-grid>
 </ion-content>

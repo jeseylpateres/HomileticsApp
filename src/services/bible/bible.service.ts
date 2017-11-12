@@ -1,8 +1,9 @@
 import { Injectable } from "@angular/core";
 
-import { BookType } from "../core/enums/booktype";
-import { Bible } from "../model/bible/bible";
-import { BibleBook } from "../model/bible/bible-mock";
+import { BookType } from "../../core/enums/booktype.enum";
+
+import { BibleBook } from "../../models/bible/bible-mock";
+import { Bible } from "../../models/bible/bible.model";
 
 @Injectable()
 export class BibleService {
@@ -107,7 +108,7 @@ export class BibleService {
             testament = BibleBook[bookId + this._totalOldBook].testament;
         }
 
-        console.log("getTestamentById" + testament);
+        //console.log("getTestamentById" + testament);
         return testament;
     }
 
@@ -366,7 +367,7 @@ export class BibleService {
         switch (bookType) {
             case BookType.OldAndNewTestament:
                 {
-                    for (let i = 0; i <= (this._totalBook - (this._totalNewBook + 1)); i++) {
+                    for (let i = 0; i <= this._totalBook - 1; i++) {
                         val = random_data % BibleBook[i].chapters + 1;
                         if (i == 0) {
                             this._val = val;
@@ -401,7 +402,7 @@ export class BibleService {
                 break;
         }
 
-        console.log("Random Result: " + chapter);
+        //console.log("Random Result: " + chapter);
         return chapter;
     }
 

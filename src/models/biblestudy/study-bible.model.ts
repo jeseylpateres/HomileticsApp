@@ -1,13 +1,13 @@
-import { Division } from "./division";
+import { StudyDivision } from "./study-division.model";
 
-export class Study {
+export class StudyBible {
     bookId: number;
     book: string;
     chapter: number;
     verseStart: number;
     verseEnd: number;
-    status: number;
-    divisions: Division[];
+    status: boolean;
+    divisions: StudyDivision[];
     dateCreated: string;
     dateUpdated: string;
 

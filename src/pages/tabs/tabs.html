@@ -1,5 +1,5 @@
-<ion-tabs>
-  <ion-tab [root]="tab1Root" tabTitle="Menu" tabIcon="menu"></ion-tab>
-  <ion-tab [root]="tab2Root" tabTitle="" tabIcon="apps">&nbsp</ion-tab>
-  <ion-tab [root]="tab3Root" tabTitle="Add Study" tabIcon="add"></ion-tab>
+<ion-tabs class="tabs-Title" color="dark" tabsLayout="icon-left" selectedIndex="1"> <!-- selectedIndex="2" -->
+  <ion-tab [root]="tab1Root" tabTitle="" tabIcon="menu"></ion-tab>
+  <ion-tab [root]="tab2Root" tabTitle="" tabIcon="apps"></ion-tab>
+  <ion-tab [root]="tab3Root" tabsLayout="icon-left" tabTitle="Add Study" tabIcon="add"></ion-tab> <!-- align-title="center" -->
 </ion-tabs>

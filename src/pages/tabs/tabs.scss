@@ -1,5 +1,6 @@
 tabs-sml {
     /*
+    // Icon color change
     ion-tabs  ion-tab .tab-button-icon{
         color: #1ebe67 ;
     }
@@ -23,5 +24,27 @@ tabs-sml {
     .tab-item.account.tab-item-active, .tab-item.account.active, .tab-item.account.activated {
         color: #DD2C00 !important;
     }
-    */
+    
+    ion-tabs {
+        color : "dark"
+    }
+
+    // Text color change
+    .tabs-md .tab-button {
+        color: hsl(46, 100%, 50%) !important;
+       }
+      
+    .tabs-md .tab-button[aria-selected=true] {
+        color: #DD2C00 !important;
+    }
+    */ 
+    .bar-button-md {
+        margin-left: 0.8rem !important;
+        margin-right: 0.8rem !important;
+    }
+
+    .bar-button-ios {
+        padding: 0 5px !important;
+    }
+    
 }

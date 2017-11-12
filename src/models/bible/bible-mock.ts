@@ -1,4 +1,4 @@
-import { Bible } from "./bible";
+import { Bible } from "./bible.model";
 
 
 export const BibleBook: Bible[] = [

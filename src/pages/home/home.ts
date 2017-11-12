@@ -1,31 +1,57 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from "@angular/common";
 import { NavController, App } from 'ionic-angular';
-
-import { BookType } from "../core/enums/booktype";
-import { BibleService } from "./bible.service";
-import { User } from "../model/user/user";
-import { HomeModel } from "./home-model";
+import { TimeAgoPipe } from "time-ago-pipe";
+import { OrderModule } from 'ngx-order-pipe';
+/**
+ * ENUMS
+ */
+import { BookType } from "../../core/enums/booktype.enum";
+import { GotoPage } from "../../core/enums/gotopage.enum";
+/**
+ * SERVICES
+ */
+import { BibleService } from "../../services/bible/bible.service";
+import { StudyListService } from "./studylist.service";
+import { StudiesService } from "../../services/studies/studies.service";
+/**
+ * MODELS
+ */
+import { HomeModel } from "./home.model";
+import { StudyListModel } from "./studylist.model";
+/**
+ * PAGES
+ */
 import { MenuPage } from '../menu/menu';
-import { StudyInputPage } from '../study-input/study-input';
+import { StudyInputPage } from '../study/study-input';
+import { StudyPreviewPage } from "../study/study-preview";
 
 
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html',
-  providers: [BibleService]
+  providers: [BibleService, StudyListService, StudiesService]
 })
 export class HomePage implements OnInit {
 
   SegmentBookType: string;
   homeModel: HomeModel;
+  studylist: StudyListModel[] = [];
 
-  constructor(public navCtrl: NavController, public app: App, private bibleService: BibleService) {
+  constructor(public navCtrl: NavController,
+    public app: App,
+    private bibleService: BibleService,
+    private studyListService: StudyListService,
+    private studiesService: StudiesService) {
+
     this.homeModel = new HomeModel();
-    this.SegmentBookType = "entirebible";
   }
 
-
+  /** 
+   * NG OnInit
+  */
   ngOnInit() {
+    this.SegmentBookType = "entirebible";
 
     this.homeModel.completeStudies = 0;
     this.homeModel.ongoingStudies = 0;
@@ -37,10 +63,49 @@ export class HomePage implements OnInit {
 
   }
 
-  private study() {
-    this.navCtrl.push(StudyInputPage);
+  /**
+   * Ionic View Will Enter
+   */
+  ionViewWillEnter() {
+    this.studylist = this.studyListService.getStudyList(0, BookType.OldAndNewTestament);
   }
 
+  /**
+   * OnLoad Other Pages
+   * 
+   * @param gotoPage 
+   */
+  private onLoadPage(gotoPage: GotoPage) {
+
+    switch (gotoPage) {
+      case GotoPage.Menu:
+        this.navCtrl.push(MenuPage);
+        break;
+      case GotoPage.Home:
+        this.navCtrl.push(HomePage);
+        break;
+      case GotoPage.StudyInput:
+        this.navCtrl.push(StudyInputPage);
+        break;
+      case GotoPage.StudyPreview:
+        this.navCtrl.push(StudyPreviewPage);
+        break;
+      default:
+        console.log("Select Again!");
+        break;
+    }
+  }
+
+  /**
+   * ItemSelected from StudyList
+   * Load to StudyInputPage with NavParams
+   * 
+   * @param item 
+   */
+  itemSelected(item: string) {
+    console.log("Selected Item", item);
+    this.navCtrl.push(StudyPreviewPage, item);
+  }
 
   /**
    * [PUBLIC]
@@ -52,13 +117,16 @@ export class HomePage implements OnInit {
     let clone = null;
     switch (segment) {
       // Old & New Testament
-      case 1:
+      case BookType.OldAndNewTestament:
         {
           this.setStudy(
             0,
             this.DashboardChart.chartDataPerBookType[0].chartDataSet[0].data[0],
             this.DashboardChart.chartDataPerBookType[0].chartDataSet[1].data[0],
             BookType.OldAndNewTestament);
+
+
+          this.studylist = this.studyListService.getStudyList(0, BookType.OldAndNewTestament);
 
           clone = JSON.parse(JSON.stringify(this.DashboardChart.chartDataPerBookType[0].chartDataSet));
           clone[0].data = this.bibleService.setRandomDataForAllChapters(BookType.OldAndNewTestament);
@@ -68,13 +136,15 @@ export class HomePage implements OnInit {
         }
         break;
       // Old Testament Only
-      case 2:
+      case BookType.OldTestament:
         {
           this.setStudy(
             0,
             this.DashboardChart.chartDataPerBookType[0].chartDataSet[0].data[0],
             this.DashboardChart.chartDataPerBookType[0].chartDataSet[1].data[0],
             BookType.OldTestament);
+
+          this.studylist = this.studyListService.getStudyList(0, BookType.OldTestament);
 
           clone = JSON.parse(JSON.stringify(this.DashboardChart.chartDataPerBookType[1].chartDataSet));
           clone[0].data = this.bibleService.setRandomDataForAllChapters(BookType.OldTestament);
@@ -84,13 +154,15 @@ export class HomePage implements OnInit {
         }
         break;
       // New Testament Only
-      case 3:
+      case BookType.NewTestament:
         {
           this.setStudy(
             0,
             this.DashboardChart.chartDataPerBookType[0].chartDataSet[0].data[0],
             this.DashboardChart.chartDataPerBookType[0].chartDataSet[1].data[0],
             BookType.NewTestament);
+
+          this.studylist = this.studyListService.getStudyList(0, BookType.NewTestament);
 
           clone = JSON.parse(JSON.stringify(this.DashboardChart.chartDataPerBookType[2].chartDataSet));
           clone[0].data = this.bibleService.setRandomDataForAllChapters(BookType.NewTestament);
@@ -359,17 +431,27 @@ export class HomePage implements OnInit {
 
     // set book title per sergment
     switch (state) {
-      case 1:
-        this.homeModel.bookTestament = this.bibleService.getBookTestamentById(index, BookType.OldAndNewTestament);
-        this.homeModel.bookTitle = this.bibleService.getTitleById(index, BookType.OldAndNewTestament);
+      case BookType.OldAndNewTestament:
+        {
+          console.log(index);
+          this.homeModel.bookTestament = this.bibleService.getBookTestamentById(index, BookType.OldAndNewTestament);
+          this.homeModel.bookTitle = this.bibleService.getTitleById(index, BookType.OldAndNewTestament);
+          this.studylist = this.studyListService.getStudyListByBookId(index, 0, BookType.OldAndNewTestament);
+        }
         break;
-      case 2:
-        this.homeModel.bookTestament = this.bibleService.getBookTestamentById(index, BookType.OldTestament);
-        this.homeModel.bookTitle = this.bibleService.getTitleById(index, BookType.OldTestament);
+      case BookType.OldTestament:
+        {
+          this.homeModel.bookTestament = this.bibleService.getBookTestamentById(index, BookType.OldTestament);
+          this.homeModel.bookTitle = this.bibleService.getTitleById(index, BookType.OldTestament);
+          this.studylist = this.studyListService.getStudyListByBookId(index, 0, BookType.OldTestament);
+        }
         break;
-      case 3:
-        this.homeModel.bookTestament = this.bibleService.getBookTestamentById(index, BookType.NewTestament);
-        this.homeModel.bookTitle = this.bibleService.getTitleById(index, BookType.NewTestament);
+      case BookType.NewTestament:
+        {
+          this.homeModel.bookTestament = this.bibleService.getBookTestamentById(index, BookType.NewTestament);
+          this.homeModel.bookTitle = this.bibleService.getTitleById(index, BookType.NewTestament);
+          this.studylist = this.studyListService.getStudyListByBookId(index, 0, BookType.NewTestament);
+        }
         break;
       default:
         break;

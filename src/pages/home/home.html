@@ -1,26 +1,52 @@
-<ion-content padding id="home">
-    <!-- GROUP A : ROW 1 -->
-    <ion-grid class="study-summary">
-        <!-- TABLE HEADER -->
-        <div class="table-study-head-list">
-            <ion-row>
-                <ion-col col-4>
-                    <div class="text-result">{{ homeModel.completeStudies }}</div>
-                    <div>Completed Studies</div>
-                </ion-col>
-                <ion-col col-4>
-                    <div class="text-result">{{ homeModel.ongoingStudies }}</div>
-                    <div>Ongoing Studies</div>
-                </ion-col>
-                <ion-col col-4>
-                    <div class="text-result">{{ homeModel.ongoingQuizes }}</div>
-                    <div>Quizes</div>
-                </ion-col>
-            </ion-row>
-        </div>
-        <!-- (END) TABLE HEADER -->
-    </ion-grid>
+<ion-header>
+    <ion-navbar color="bg-dark" hideBackButton="true">
+        <ion-buttons left>
+            <button ion-button icon-only (click)="onLoadPage(90)">
+                <ion-icon name="menu"></ion-icon>
+            </button>
+        </ion-buttons>
+        <ion-title>
+            <ion-buttons>
+                <button ion-button icon-only (click)="onLoadPage(1)">
+                    <ion-icon name="apps"></ion-icon>
+                </button>
+            </ion-buttons>
+        </ion-title>
+        <ion-buttons end>
+            <button ion-button icon-only (click)="onLoadPage(2)">
+                <ion-icon name="add">
+                    <span class="menu-text"> Add Study</span>
+                </ion-icon>
+            </button>
+        </ion-buttons>
+    </ion-navbar>
+</ion-header>
 
+<ion-content padding id="home">
+
+    <ion-toolbar>
+        <!-- GROUP A : ROW 1 -->
+        <ion-grid class="study-summary">
+            <!-- TABLE HEADER -->
+            <div class="table-study-head-list">
+                <ion-row>
+                    <ion-col col-4>
+                        <div class="text-result">{{ homeModel.completeStudies }}</div>
+                        <div>Completed Studies</div>
+                    </ion-col>
+                    <ion-col col-4>
+                        <div class="text-result">{{ homeModel.ongoingStudies }}</div>
+                        <div>Ongoing Studies</div>
+                    </ion-col>
+                    <ion-col col-4>
+                        <div class="text-result">{{ homeModel.ongoingQuizes }}</div>
+                        <div>Quizes</div>
+                    </ion-col>
+                </ion-row>
+            </div>
+            <!-- (END) TABLE HEADER -->
+        </ion-grid>
+    </ion-toolbar>
 
     <!-- 
         Component : SEGMENT
@@ -31,7 +57,7 @@
     <div padding class="table-segment">
         <ion-segment [(ngModel)]="SegmentBookType">
             <ion-segment-button value="entirebible" (click)="randomize(1)">
-                <div class="segment-text">ENTIRE BIBLES</div>
+                <div class="segment-text">ENTIRE BIBLE</div>
             </ion-segment-button>
             <ion-segment-button value="oldtestament" (click)="randomize(2)">
                 <div class="segment-text">OLD TESTAMENT</div>
@@ -73,130 +99,49 @@
                 <ion-grid class="table-content">
                     <!-- TABLE HEADER -->
                     <div class="table-study-head-list">
-                        <ion-row>
-                            <ion-col col-1>#</ion-col>
+                        <ion-row class="col-border">
+                            <!-- Column 1 -->
+                            <ion-col col-1 class="text-center">#</ion-col>
+                            <!-- Column 2 -->
                             <ion-col>
                                 <strong>Reference</strong>
                             </ion-col>
-                            <ion-col col-6>
+                            <!-- Column 3 -->
+                            <ion-col col-7>
                                 <strong>Overall Subject Sentence</strong>
                             </ion-col>
+                            <!-- Column 4 -->
                             <ion-col col-2></ion-col>
                         </ion-row>
                     </div>
                     <!-- (END) TABLE HEADER -->
-                    <!-- TABLE BODY -->
+
+
+                    <!-- TABLE BODY STUDY LIST -->
                     <div class="table-study-body-list">
-                        <ion-row>
-                            <ion-col col-1>
-                                <span id="item-status">
-                                    <ion-icon ios="ios-checkmark-circle" md="md-checkmark-circle"></ion-icon>
+                        <ion-row class="col-border" *ngFor="let study  of studylist" (click)="itemSelected(study)">
+                            <!-- Column 1 -->
+                            <ion-col col-1 class="text-center">
+                                <span id="item-status" [ngSwitch]="study.divStatus">
+                                    <span *ngSwitchCase="1">
+                                        <ion-icon ios="ios-checkmark-circle" md="md-checkmark-circle"></ion-icon>
+                                    </span>
+                                    <span *ngSwitchCase="2">
+                                        <ion-icon ios="ios-checkmark-circle-outline" md="md-checkmark-circle-outline"></ion-icon>
+                                    </span>
                                 </span>
                             </ion-col>
-                            <ion-col>
-                                Mark 1:1-26
-                            </ion-col>
-                            <ion-col col-6>
-                                Jesus Taken Up Into Heaven
-                            </ion-col>
+                            <!-- Column 2 -->
                             <ion-col col-2>
-                                2 days ago
+                                {{study.book}} {{study.chapter}}:{{study.divisionVerseStart}}-{{study.divisionVerseEnd}}
                             </ion-col>
-                        </ion-row>
-                        <ion-row>
-                            <ion-col col-1>
-                                <span id="item-status">
-                                    <ion-icon ios="ios-checkmark-circle" md="md-checkmark-circle"></ion-icon>
-                                </span>
+                            <!-- Column 3 -->
+                            <ion-col col-7>
+                                {{study.summarySentense}}
                             </ion-col>
-                            <ion-col>
-                                Mark 1:1-26
-                            </ion-col>
-                            <ion-col col-6>
-                                Jesus Taken Up Into Heaven
-                            </ion-col>
+                            <!-- Column 4 -->
                             <ion-col col-2>
-                                2 days ago
-                            </ion-col>
-                        </ion-row>
-                        <ion-row>
-                            <ion-col col-1>
-                                <span id="item-status">
-                                    <ion-icon ios="ios-checkmark-circle" md="md-checkmark-circle"></ion-icon>
-                                </span>
-                            </ion-col>
-                            <ion-col>
-                                Mark 1:1-26
-                            </ion-col>
-                            <ion-col col-6>
-                                Jesus Taken Up Into Heaven
-                            </ion-col>
-                            <ion-col col-2>
-                                2 days ago
-                            </ion-col>
-                        </ion-row>
-                        <ion-row>
-                            <ion-col col-1>
-                                <span id="item-status">
-                                    <ion-icon ios="ios-checkmark-circle" md="md-checkmark-circle"></ion-icon>
-                                </span>
-                            </ion-col>
-                            <ion-col>
-                                Mark 1:1-26
-                            </ion-col>
-                            <ion-col col-6>
-                                Jesus Taken Up Into Heaven
-                            </ion-col>
-                            <ion-col col-2>
-                                2 days ago
-                            </ion-col>
-                        </ion-row>
-                        <ion-row>
-                            <ion-col col-1>
-                                <span id="item-status">
-                                    <ion-icon ios="ios-checkmark-circle" md="md-checkmark-circle"></ion-icon>
-                                </span>
-                            </ion-col>
-                            <ion-col>
-                                Mark 1:1-26
-                            </ion-col>
-                            <ion-col col-6>
-                                Jesus Taken Up Into Heaven
-                            </ion-col>
-                            <ion-col col-2>
-                                2 days ago
-                            </ion-col>
-                        </ion-row>
-                        <ion-row>
-                            <ion-col col-1>
-                                <span id="item-status">
-                                    <ion-icon ios="ios-checkmark-circle-outline" md="md-checkmark-circle-outline"></ion-icon>
-                                </span>
-                            </ion-col>
-                            <ion-col>
-                                Mark 1:1-26
-                            </ion-col>
-                            <ion-col col-6>
-                                Jesus Taken Up Into Heaven
-                            </ion-col>
-                            <ion-col col-2>
-                                2 days ago
-                            </ion-col>
-                        </ion-row>
-                        <ion-row>
-                            <ion-col col-1>
-                                <span id="item-status">
-                                    <ion-icon ios="ios-checkmark-circle-outline" md="md-checkmark-circle-outline"></ion-icon>
-                                </span>
-                            </ion-col>
-                            <ion-col>
-                                Mark 1:1-26
-                            </ion-col>
-                            <ion-col col-6>
-                                Jesus Taken Up Into Heaven
-                            </ion-col>
-                            <ion-col col-2>
-                                2 days ago
+                                {{ (study.dateUpdated | date:'MM/dd/yyyy') | timeAgo}} <!-- timeAgo -->
                             </ion-col>
                         </ion-row>
                     </div>
@@ -239,131 +184,49 @@
                 <ion-grid class="table-content">
                     <!-- TABLE HEADER -->
                     <div class="table-study-head-list">
-                        <ion-row>
-                            <ion-col col-1>#</ion-col>
+                        <ion-row class="col-border">
+                            <!-- Column 1 -->
+                            <ion-col col-1 class="text-center">#</ion-col>
+                            <!-- Column 2 -->
                             <ion-col>
                                 <strong>Reference</strong>
                             </ion-col>
-                            <ion-col col-6>
+                            <!-- Column 3 -->
+                            <ion-col col-7>
                                 <strong>Overall Subject Sentence</strong>
                             </ion-col>
+                            <!-- Column 4 -->
                             <ion-col col-2></ion-col>
                         </ion-row>
                     </div>
                     <!-- (END) TABLE HEADER -->
 
+
                     <!-- TABLE BODY -->
                     <div class="table-study-body-list">
-                        <ion-row>
-                            <ion-col col-1>
-                                <span id="item-status">
-                                    <ion-icon ios="ios-checkmark-circle" md="md-checkmark-circle"></ion-icon>
+                        <ion-row class="col-border" *ngFor="let study  of studylist" (click)="itemSelected(study)">
+                            <!-- Column 1 -->
+                            <ion-col col-1 class="text-center">
+                                <span id="item-status" [ngSwitch]="study.divStatus">
+                                    <span *ngSwitchCase="1">
+                                        <ion-icon ios="ios-checkmark-circle" md="md-checkmark-circle"></ion-icon>
+                                    </span>
+                                    <span *ngSwitchCase="2">
+                                        <ion-icon ios="ios-checkmark-circle-outline" md="md-checkmark-circle-outline"></ion-icon>
+                                    </span>
                                 </span>
                             </ion-col>
-                            <ion-col>
-                                Acts 1:1-26
-                            </ion-col>
-                            <ion-col col-6>
-                                Jesus Taken Up Into Heaven
-                            </ion-col>
+                            <!-- Column 2 -->
                             <ion-col col-2>
-                                2 days ago
+                                {{study.book}} {{study.chapter}}:{{study.divisionVerseStart}}-{{study.divisionVerseEnd}}
                             </ion-col>
-                        </ion-row>
-                        <ion-row>
-                            <ion-col col-1>
-                                <span id="item-status">
-                                    <ion-icon ios="ios-checkmark-circle" md="md-checkmark-circle"></ion-icon>
-                                </span>
+                            <!-- Column 3 -->
+                            <ion-col col-7>
+                                {{study.summarySentense}}
                             </ion-col>
-                            <ion-col>
-                                Acts 1:1-26
-                            </ion-col>
-                            <ion-col col-6>
-                                Jesus Taken Up Into Heaven
-                            </ion-col>
+                            <!-- Column 4 -->
                             <ion-col col-2>
-                                2 days ago
-                            </ion-col>
-                        </ion-row>
-                        <ion-row>
-                            <ion-col col-1>
-                                <span id="item-status">
-                                    <ion-icon ios="ios-checkmark-circle" md="md-checkmark-circle"></ion-icon>
-                                </span>
-                            </ion-col>
-                            <ion-col>
-                                Acts 1:1-26
-                            </ion-col>
-                            <ion-col col-6>
-                                Jesus Taken Up Into Heaven
-                            </ion-col>
-                            <ion-col col-2>
-                                2 days ago
-                            </ion-col>
-                        </ion-row>
-                        <ion-row>
-                            <ion-col col-1>
-                                <span id="item-status">
-                                    <ion-icon ios="ios-checkmark-circle" md="md-checkmark-circle"></ion-icon>
-                                </span>
-                            </ion-col>
-                            <ion-col>
-                                Acts 1:1-26
-                            </ion-col>
-                            <ion-col col-6>
-                                Jesus Taken Up Into Heaven
-                            </ion-col>
-                            <ion-col col-2>
-                                2 days ago
-                            </ion-col>
-                        </ion-row>
-                        <ion-row>
-                            <ion-col col-1>
-                                <span id="item-status">
-                                    <ion-icon ios="ios-checkmark-circle" md="md-checkmark-circle"></ion-icon>
-                                </span>
-                            </ion-col>
-                            <ion-col>
-                                Acts 1:1-26
-                            </ion-col>
-                            <ion-col col-6>
-                                Jesus Taken Up Into Heaven
-                            </ion-col>
-                            <ion-col col-2>
-                                2 days ago
-                            </ion-col>
-                        </ion-row>
-                        <ion-row>
-                            <ion-col col-1>
-                                <span id="item-status">
-                                    <ion-icon ios="ios-checkmark-circle-outline" md="md-checkmark-circle-outline"></ion-icon>
-                                </span>
-                            </ion-col>
-                            <ion-col>
-                                Acts 1:1-26
-                            </ion-col>
-                            <ion-col col-6>
-                                Jesus Taken Up Into Heaven
-                            </ion-col>
-                            <ion-col col-2>
-                                2 days ago
-                            </ion-col>
-                        </ion-row>
-                        <ion-row>
-                            <ion-col col-1>
-                                <span id="item-status">
-                                    <ion-icon ios="ios-checkmark-circle-outline" md="md-checkmark-circle-outline"></ion-icon>
-                                </span>
-                            </ion-col>
-                            <ion-col>
-                                Acts 1:1-26
-                            </ion-col>
-                            <ion-col col-6>
-                                Jesus Taken Up Into Heaven
-                            </ion-col>
-                            <ion-col col-2>
-                                2 days ago
+                                {{study.dateUpdated | timeAgo}}
                             </ion-col>
                         </ion-row>
                     </div>
@@ -406,134 +269,51 @@
 
                 <!-- Header of Study List -->
                 <ion-grid class="table-content">
-
                     <!-- TABLE HEADER -->
                     <div class="table-study-head-list">
-                        <ion-row>
-                            <ion-col col-1>#</ion-col>
+                        <ion-row class="col-border">
+                            <!-- Column 1 -->
+                            <ion-col col-1 class="text-center">#</ion-col>
+                            <!-- Column 2 -->
                             <ion-col>
                                 <strong>Reference</strong>
                             </ion-col>
-                            <ion-col col-6>
+                            <!-- Column 3 -->
+                            <ion-col col-7>
                                 <strong>Overall Subject Sentence</strong>
                             </ion-col>
+                            <!-- Column 4 -->
                             <ion-col col-2></ion-col>
                         </ion-row>
                     </div>
                     <!-- (END) TABLE HEADER -->
 
+
                     <!-- TABLE BODY -->
                     <div class="table-study-body-list">
-                        <ion-row>
-                            <ion-col col-1>
-                                <span id="item-status">
-                                    <ion-icon ios="ios-checkmark-circle" md="md-checkmark-circle"></ion-icon>
+                        <ion-row class="col-border" *ngFor="let study  of studylist" (click)="itemSelected(study)">
+                            <!-- Column 1 -->
+                            <ion-col col-1 class="text-center">
+                                <span id="item-status" [ngSwitch]="study.divStatus">
+                                    <span *ngSwitchCase="1">
+                                        <ion-icon ios="ios-checkmark-circle" md="md-checkmark-circle"></ion-icon>
+                                    </span>
+                                    <span *ngSwitchCase="2">
+                                        <ion-icon ios="ios-checkmark-circle-outline" md="md-checkmark-circle-outline"></ion-icon>
+                                    </span>
                                 </span>
                             </ion-col>
-                            <ion-col>
-                                Mark 1:1-26
-                            </ion-col>
-                            <ion-col col-6>
-                                Jesus Taken Up Into Heaven
-                            </ion-col>
+                            <!-- Column 2 -->
                             <ion-col col-2>
-                                2 days ago
+                                {{study.book}} {{study.chapter}}:{{study.divisionVerseStart}}-{{study.divisionVerseEnd}}
                             </ion-col>
-                        </ion-row>
-                        <ion-row>
-                            <ion-col col-1>
-                                <span id="item-status">
-                                    <ion-icon ios="ios-checkmark-circle" md="md-checkmark-circle"></ion-icon>
-                                </span>
+                            <!-- Column 3 -->
+                            <ion-col col-7>
+                                {{study.summarySentense}}
                             </ion-col>
-                            <ion-col>
-                                Mark 1:1-26
-                            </ion-col>
-                            <ion-col col-6>
-                                Jesus Taken Up Into Heaven
-                            </ion-col>
+                            <!-- Column 4 -->
                             <ion-col col-2>
-                                2 days ago
-                            </ion-col>
-                        </ion-row>
-                        <ion-row>
-                            <ion-col col-1>
-                                <span id="item-status">
-                                    <ion-icon ios="ios-checkmark-circle" md="md-checkmark-circle"></ion-icon>
-                                </span>
-                            </ion-col>
-                            <ion-col>
-                                Mark 1:1-26
-                            </ion-col>
-                            <ion-col col-6>
-                                Jesus Taken Up Into Heaven
-                            </ion-col>
-                            <ion-col col-2>
-                                2 days ago
-                            </ion-col>
-                        </ion-row>
-                        <ion-row>
-                            <ion-col col-1>
-                                <span id="item-status">
-                                    <ion-icon ios="ios-checkmark-circle" md="md-checkmark-circle"></ion-icon>
-                                </span>
-                            </ion-col>
-                            <ion-col>
-                                Mark 1:1-26
-                            </ion-col>
-                            <ion-col col-6>
-                                Jesus Taken Up Into Heaven
-                            </ion-col>
-                            <ion-col col-2>
-                                2 days ago
-                            </ion-col>
-                        </ion-row>
-                        <ion-row>
-                            <ion-col col-1>
-                                <span id="item-status">
-                                    <ion-icon ios="ios-checkmark-circle" md="md-checkmark-circle"></ion-icon>
-                                </span>
-                            </ion-col>
-                            <ion-col>
-                                Mark 1:1-26
-                            </ion-col>
-                            <ion-col col-6>
-                                Jesus Taken Up Into Heaven
-                            </ion-col>
-                            <ion-col col-2>
-                                2 days ago
-                            </ion-col>
-                        </ion-row>
-                        <ion-row>
-                            <ion-col col-1>
-                                <span id="item-status">
-                                    <ion-icon ios="ios-checkmark-circle-outline" md="md-checkmark-circle-outline"></ion-icon>
-                                </span>
-                            </ion-col>
-                            <ion-col>
-                                Mark 1:1-26
-                            </ion-col>
-                            <ion-col col-6>
-                                Jesus Taken Up Into Heaven
-                            </ion-col>
-                            <ion-col col-2>
-                                2 days ago
-                            </ion-col>
-                        </ion-row>
-                        <ion-row>
-                            <ion-col col-1>
-                                <span id="item-status">
-                                    <ion-icon ios="ios-checkmark-circle-outline" md="md-checkmark-circle-outline"></ion-icon>
-                                </span>
-                            </ion-col>
-                            <ion-col>
-                                Mark 1:1-26
-                            </ion-col>
-                            <ion-col col-6>
-                                Jesus Taken Up Into Heaven
-                            </ion-col>
-                            <ion-col col-2>
-                                2 days ago
+                                {{study.dateUpdated | timeAgo}}
                             </ion-col>
                         </ion-row>
                     </div>
@@ -551,8 +331,10 @@
         <ion-row>
             <ion-col col-1></ion-col>
             <ion-col center text-center col-10>
-                <button ion-button round large color="bg-homecolor" (click)="study()">Start a New Study</button>
+                <button ion-button round large color="bg-homecolor" (click)="onLoadPage(2)">Start a New Study</button>
             </ion-col>
+            <ion-col col-1></ion-col>
         </ion-row>
     </div>
+
 </ion-content>

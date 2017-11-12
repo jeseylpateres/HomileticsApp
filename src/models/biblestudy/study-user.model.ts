@@ -1,10 +1,10 @@
-import { Study } from "../study/study";
+import { StudyBible } from "./study-bible.model";
 
-export class User {
+export class StudyUser {
     id: number;
     userName: string;
     userEmail: string;
-    studies: Study[];
+    studies: StudyBible[];
     dateCreated: string;
     dateUpdated: string;
 }

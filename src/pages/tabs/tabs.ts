@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { StudyInputPage } from '../study-input/study-input';
+import { StudyInputPage } from '../study/study-input';
 import { MenuPage } from '../menu/menu';
 import { HomePage } from '../home/home';
 

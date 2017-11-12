@@ -19,7 +19,7 @@ page-home {
     height: 95%;
     overflow-x: scroll;
     scroll-behavior: smooth;
-    padding: 25px;
+    padding: 5px;
   }
   /* Ionic Segment button - horizontal line */
   .segment-activated {
@@ -37,11 +37,14 @@ page-home {
     text-align: center
   }
   /* Table */
+  .col-border {
+    border-bottom: 1px solid rgba(gray, $alpha: 0.10);
+  }
   .table-study-head-list {
     padding-bottom: 10px;
   }
   .table-study-body-list {
-    height: 110px;
+    height: 250px; //110px;
     overflow-y: scroll;
     padding-bottom: 10px;
   }
@@ -67,8 +70,8 @@ page-home {
     font-size: small;
   }
   .table-content {
-    padding-left: 8%;
-    padding-right: 8%;
+    padding-left: 2%;
+    padding-right: 2%;
   }
   /* Extra Small Devices, Phones */
   @media only screen and (min-width: 320px) and (max-width: 760px) {
@@ -98,3 +101,4 @@ page-home {
     }
   }
 }
+
