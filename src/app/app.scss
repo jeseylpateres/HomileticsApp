@@ -38,12 +38,13 @@ ion-title {
 /* Extra Small Devices, Phones */
 
 @media only screen and (min-width: 320px) and (max-width: 760px) {
-  ion-navbar {
-    margin-top: 25px;
-  }
 }
 
 
 /* Small Devices, Tablets */
 
-@media only screen and (min-width: 768px) and (max-width: 1200px) {}
+@media only screen and (min-width: 768px) and (max-width: 1200px) {
+    ion-navbar {
+      margin-top: 25px;
+    }
+}
