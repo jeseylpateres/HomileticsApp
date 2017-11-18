@@ -35,6 +35,11 @@ ion-title {
     text-align: center;
 }
 
+.icon-checkmark {
+    color: color($colors, secondary);
+}
+
 ion-navbar {
     margin-top: 25px;
 }
+

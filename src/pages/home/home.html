@@ -2,19 +2,19 @@
     <ion-navbar color="bg-dark" hideBackButton="true">
         <ion-buttons left>
             <button ion-button icon-only (click)="onLoadPage(90)">
-                <ion-icon name="menu"></ion-icon>
+                <ion-icon ios="ios-menu" md="md-menu"></ion-icon>
             </button>
         </ion-buttons>
         <ion-title>
             <ion-buttons>
                 <button ion-button icon-only (click)="onLoadPage(1)">
-                    <ion-icon name="apps"></ion-icon>
+                    <ion-icon ios="ios-apps" md="md-apps"></ion-icon>
                 </button>
             </ion-buttons>
         </ion-title>
         <ion-buttons end>
             <button ion-button icon-only (click)="onLoadPage(2)">
-                <ion-icon name="add">
+                <ion-icon ios="ios-add" md="md-add">
                     <span class="menu-text"> Add Study</span>
                 </ion-icon>
             </button>
@@ -124,10 +124,10 @@
                             <ion-col col-1 class="text-center">
                                 <span id="item-status" [ngSwitch]="study.divStatus">
                                     <span *ngSwitchCase="1">
-                                        <ion-icon ios="ios-checkmark-circle" md="md-checkmark-circle"></ion-icon>
+                                        <ion-icon ios="ios-checkmark-circle" md="md-checkmark-circle" class="icon-checkmark"></ion-icon>
                                     </span>
                                     <span *ngSwitchCase="2">
-                                        <ion-icon ios="ios-checkmark-circle-outline" md="md-checkmark-circle-outline"></ion-icon>
+                                        <ion-icon ios="ios-checkmark-circle-outline" md="md-checkmark-circle-outline" class="icon-checkmark"></ion-icon>
                                     </span>
                                 </span>
                             </ion-col>
@@ -209,10 +209,10 @@
                             <ion-col col-1 class="text-center">
                                 <span id="item-status" [ngSwitch]="study.divStatus">
                                     <span *ngSwitchCase="1">
-                                        <ion-icon ios="ios-checkmark-circle" md="md-checkmark-circle"></ion-icon>
+                                        <ion-icon ios="ios-checkmark-circle" md="md-checkmark-circle" class="icon-checkmark"></ion-icon>
                                     </span>
                                     <span *ngSwitchCase="2">
-                                        <ion-icon ios="ios-checkmark-circle-outline" md="md-checkmark-circle-outline"></ion-icon>
+                                        <ion-icon ios="ios-checkmark-circle-outline" md="md-checkmark-circle-outline" class="icon-checkmark"></ion-icon>
                                     </span>
                                 </span>
                             </ion-col>
@@ -296,10 +296,10 @@
                             <ion-col col-1 class="text-center">
                                 <span id="item-status" [ngSwitch]="study.divStatus">
                                     <span *ngSwitchCase="1">
-                                        <ion-icon ios="ios-checkmark-circle" md="md-checkmark-circle"></ion-icon>
+                                        <ion-icon ios="ios-checkmark-circle" md="md-checkmark-circle" class="icon-checkmark"></ion-icon>
                                     </span>
                                     <span *ngSwitchCase="2">
-                                        <ion-icon ios="ios-checkmark-circle-outline" md="md-checkmark-circle-outline"></ion-icon>
+                                        <ion-icon ios="ios-checkmark-circle-outline" md="md-checkmark-circle-outline" class="icon-checkmark"></ion-icon>
                                     </span>
                                 </span>
                             </ion-col>
