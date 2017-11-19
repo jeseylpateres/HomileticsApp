@@ -12,6 +12,7 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+
 ion-title {
   position: absolute;
   top: 0;
@@ -38,13 +39,28 @@ ion-title {
 /* Extra Small Devices, Phones */
 
 @media only screen and (min-width: 320px) and (max-width: 760px) {
+
 }
 
 
 /* Small Devices, Tablets */
 
 @media only screen and (min-width: 768px) and (max-width: 1200px) {
-    ion-navbar {
-      margin-top: 25px;
-    }
+  ion-navbar {
+    margin-top: 25px;
+  }
 }
+
+@import "../pages/about/about";
+
+@import "../pages/contact/contact";
+
+@import "../pages/forgotpassword/forgotpassword";
+
+@import "../pages/home/home";
+
+@import "../pages/login/login";
+
+@import "../pages/menu/menu";
+
+@import "../pages/signup/signup";

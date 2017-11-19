@@ -157,6 +157,76 @@ export class BibleService {
     }
 
     /**
+     * GetBookInfo of Bible
+     * 
+     * @param book 
+     * return Bible
+     */
+    getBooksInfoOfBible(book: string): Bible {
+        let bible = new Bible();
+
+        for (let i = 0; i <= (this._totalBook - 1); i++) {
+            
+            if (BibleBook[i].book.toLowerCase() === book.toLowerCase()) {
+                bible = BibleBook[i];
+                break;
+            }
+
+            if(BibleBook.length >= i){
+                bible = null;
+            }
+
+        }
+        
+        return bible;
+    }
+    
+        /**
+         * Get All Books
+         * bookType = 1 : old and new testament
+         * bookType = 2 : old testament
+         * bookType = 3 : new testament
+         * 
+         * @param bookType 
+         * @returns String[]
+         */
+        getAllBooksOfBible(bookType: BookType): string[] {
+    
+            let book = [];
+    
+            switch (bookType) {
+                case BookType.OldAndNewTestament:
+                    {
+                        for (let i = 0; i <= (this._totalBook - 1); i++) {
+                            book.push(BibleBook[i].book);
+                        }
+                    }
+                    break;
+                case BookType.OldTestament:
+                    {
+                        for (let i = 0; i <= (this._totalBook - (this._totalNewBook + 1)); i++) {
+                            book.push(BibleBook[i].book);
+                        }
+                    }
+                    break;
+                case BookType.NewTestament:
+                    {
+                        for (let i = this._totalOldBook; i <= (this._totalBook - 1); i++) {
+                            book.push(BibleBook[i].book);
+                        }
+                    }
+                    break;
+    
+                default:
+                    break;
+            }
+    
+            return book;
+        }
+
+        
+
+    /**
      * Get All Chapter of the Book
      * bookType = 1 : old and new testament
      * bookType = 2 : old testament
