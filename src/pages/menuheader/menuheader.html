@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-navbar color="bg-dark" hideBackButton="true">
+      <ion-buttons left>
+          <button ion-button icon-only (click)="onLoadPage(90)">
+              <ion-icon ios="ios-menu" md="md-menu"></ion-icon>
+          </button>
+      </ion-buttons>
+      <ion-title>
+          <ion-buttons>
+              <button ion-button icon-only (click)="onLoadPage(1)">
+                  <ion-icon ios="ios-apps" md="md-apps"></ion-icon>
+              </button>
+          </ion-buttons>
+      </ion-title>
+      <ion-buttons end>
+          <button ion-button icon-only (click)="onLoadPage(2)">
+              <ion-icon ios="ios-add" md="md-add">
+                  <span class="menu-text"> Add Study</span>
+              </ion-icon>
+          </button>
+      </ion-buttons>
+  </ion-navbar>
+</ion-header>

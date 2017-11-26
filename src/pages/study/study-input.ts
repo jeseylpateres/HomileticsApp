@@ -28,11 +28,14 @@ import { MenuPage } from "../menu/menu";
   providers: [StudiesService, BibleService]
 })
 export class StudyInputPage {
+  private searchQuerybible: string;
 
   private books: Array<any> = [];
   private bible: Bible;
   private studyBible: StudyBible;
   private isDisplay: boolean = false;
+  private booklist = [];
+  private myInput : string = '';
 
 
   constructor(private studiesService: StudiesService,
@@ -44,14 +47,30 @@ export class StudyInputPage {
     this.studyBible = new StudyBible();
     this.studyBible.book = "Untitled Study";
     this.books = this.bibleService.getAllBooksOfBible(BookType.OldAndNewTestament);
+    this.booklist = this.bibleService.getAllBooksOfBible(BookType.OldAndNewTestament);
+    console.log(this.booklist);
 
     console.log("Result: " + this.navParams.get("bookId"));
     console.log("Result: " + this.navParams.get("book"));
+    this.bible.book = this.myInput;
+  }
+
+  onSearch() {
+    console.log("safdsf");
+    this.studyBible.book = this.searchQuerybible;
+  }
+
+  /**
+   * Clear the search box
+   */
+  onClear() {
+    this.studyBible.book = "";
   }
 
   onClickAddStudy(value: { book: string }) {
     //console.log("book: " + value.book);
     if (this.bibleService.getBooksInfoOfBible(value.book) !== null) {
+      console.log("asdfsdf");
       this.bible = this.bibleService.getBooksInfoOfBible(value.book);
       this.studyBible.book = this.bible.book;
       this.isDisplay = true;
@@ -63,8 +82,11 @@ export class StudyInputPage {
       
     }
   }
+  search() {
+    console.log("Try Again!");
+  }
 
-  onAddStudy(value: { title: string }) {
+  onAddStudy(value: { title: string, gender: string }) {
     this.studiesService.addStudy(value);
     console.log("Value" + value + " : " + value.title);
     this.navCtrl.pop()

@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 
-import { TabsPage } from '../tabs/tabs';
 import { SignupPage } from '../signup/signup';
 import { ForgotpasswordPage } from '../forgotpassword/forgotpassword';
 import { MenuPage } from '../menu/menu';
@@ -16,8 +15,8 @@ export class LoginPage {
   }
 
   login() {
-    this.navCtrl.push(TabsPage, {}, {animate: true});
-    //this.navCtrl.push(TabsPage);
+    //this.navCtrl.push(TabsPage, {}, {animate: true});
+    this.navCtrl.push(MenuPage);
   }
 
   signup() {

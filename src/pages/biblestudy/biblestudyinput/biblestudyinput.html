@@ -1,0 +1,53 @@
+<ion-content>
+  <page-menu-header></page-menu-header>
+  <div class="main">
+    <page-biblestudy-header [book]="book"></page-biblestudy-header>
+    <page-biblestudy-progressbar></page-biblestudy-progressbar>
+    <ion-card class="card-full-height">
+      <!-- SearchBox -->
+      <div>
+        <!-- <ion-searchbar 
+          type="search" 
+          name="book" 
+          placeholder="Bible Reference" 
+          #parentInput 
+          [(ngModel)]="book" 
+          autocomplete="on" 
+          autocorrect="on"
+          required 
+          (keyup)="0" 
+          (ionCancel)="onClear()">
+        </ion-searchbar> -->
+        <ion-searchbar 
+        type="search" 
+        name="book" 
+        placeholder="Bible Reference" 
+        [(ngModel)]="book" 
+        autocomplete="on" 
+        autocorrect="on"
+        required 
+        (keyup)="0" 
+        (submit)="onSubmit()"
+        (ionCancel)="onClear()">
+      </ion-searchbar>
+      </div>
+        <!-- <span *ngIf="isDisplay">
+          {{ myInput }}
+        </span> -->
+
+      <!-- Button -->
+      <div class="button-study">
+        <ion-row>
+          <ion-col col-1></ion-col>
+          <ion-col center text-center col-10>
+            <button ion-button>
+              <ion-icon ios="ios-list" md="md-list" class="icon-color-green"></ion-icon>
+              ADD DIVISION
+            </button>
+          </ion-col>
+          <ion-col col-1></ion-col>
+        </ion-row>
+      </div>
+    </ion-card>
+  </div>
+</ion-content>

@@ -5,7 +5,7 @@ import { Platform } from 'ionic-angular';
 
 import { LoginPage } from '../pages/login/login';
 import { HomePage } from '../pages/home/home';
-import { TabsPage } from '../pages/tabs/tabs';
+import { BibleStudyInput } from "../pages/biblestudy/biblestudyinput/biblestudyinput.component";
 
 @Component({
   templateUrl: 'app.html'

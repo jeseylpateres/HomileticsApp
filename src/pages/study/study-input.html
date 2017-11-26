@@ -1,64 +1,93 @@
-<ion-header>
+<page-menu-header></page-menu-header>
+<ion-content id="study-input">
 
-    <ion-navbar color="bg-dark" hideBackButton="true">
-        <ion-buttons left>
-            <button ion-button icon-only (click)="onLoadPage(90)">
-                <ion-icon name="menu"></ion-icon>
-            </button>
-        </ion-buttons>
+  <!-- <form (ngSubmit)="onClickAddStudy(f.value)" #f="ngForm">
+    <ion-item>
+      <ion-searchbar type="search" 
+          name="book" 
+          placeholder="Bible Reference" 
+          autocomplete="on" 
+          [(ngModel)]="myInput" 
+          autocorrect="on"
+          required 
+          (ionCancel)="onClear()">
+      </ion-searchbar>
+      <span *ngIf="isDisplay">
+        {{ myInput }}
+      </span>
 
-        <ion-title>
-            <ion-buttons>
-                <button ion-button icon-only (click)="onLoadPage(1)">
-                    <ion-icon name="apps"></ion-icon>
-                </button>
-            </ion-buttons>
-        </ion-title>
+      <div>
+        <select class="form-control" id="power" required block>
+          <option *ngFor="let bl of books" [value]="bl">{{bl}}</option>
+        </select>
 
-        <ion-buttons end>
-            <button ion-button icon-only (click)="onLoadPage(2)">
-                <ion-icon name="add">
-                    <span class="menu-text"> Add Study</span>
-                </ion-icon>
-            </button>
-        </ion-buttons>
-    </ion-navbar>
+      </div>
+    </ion-item>
 
-</ion-header>
+    <button ion-button block type="submit" [disabled]="!f.valid"> Add Study</button>
 
+  </form> -->
+  <!--
+    <ion-select [(ngModel)]="gender" ion-searchbar>
+      <ion-option value="f">Female</ion-option>
+      <ion-option value="m">Male</ion-option>
+    </ion-select>
+-->
 
-<ion-content padding id="study-input">
+  <div class="main">
 
-    <ion-toolbar>
-        <!-- GROUP A : ROW 1 -->
-        <ion-grid class="study-summary">
-            <!-- TABLE HEADER -->
-            <div class="table-study-head-list">
-                <ion-row>
-                    <ion-col col-12>
-                        <div class="text-result">{{studyBible.book}}</div>
-                    </ion-col>
-                </ion-row>
-            </div>
-            <!-- (END) TABLE HEADER -->
-        </ion-grid>
+    <ion-toolbar no-padding>
+      <!-- GROUP A : ROW 1 -->
+      <ion-grid class="study-summary">
+        <!-- TABLE HEADER -->
+        <div class="table-study-head-list">
+          <ion-row>
+            <ion-col col-12>
+              <div class="text-result">{{studyBible.book}}</div>
+            </ion-col>
+          </ion-row>
+        </div>
+        <!-- (END) TABLE HEADER -->
+      </ion-grid>
     </ion-toolbar>
+    <page-biblestudy-progressbar></page-biblestudy-progressbar>
+    <ion-card class="card-full-height">
+      <!-- SearchBox -->
+      <div>
+        <!-- <ion-searchbar 
+            type="search" 
+            name="book" 
+            placeholder="Bible Reference" 
+            #parentInput 
+            [(ngModel)]="book" 
+            autocomplete="on" 
+            autocorrect="on"
+            required 
+            (keyup)="0" 
+            (ionCancel)="onClear()">
+          </ion-searchbar> -->
+        <ion-searchbar type="search" name="book" placeholder="Bible Reference" [(ngModel)]="searchQuerybible" autocomplete="on" autocorrect="on"
+          required (keyup)="0" (search)="onSearch()" (ionCancel)="onClear()">
+        </ion-searchbar>
+      </div>
+      <!-- <span *ngIf="isDisplay">
+            {{ myInput }}
+          </span> -->
 
-
-
-
-    <form (ngSubmit)="onClickAddStudy(f.value)" #f="ngForm">
-        <ion-item>
-            <ion-searchbar type="book" name="book" autocorrect="on" ngModel autocomplete required placeholder="Bible Reference"></ion-searchbar>
-            <!-- <ion-searchbar type="book" name="book" [(ngModel)]=query (keyup)=filter() required></ion-searchbar> -->
-            <div [hidden]="!isDisplay">
-                fdf
-                    
-            </div>
-        </ion-item>
-        <button ion-button block type="submit" [disabled]="!f.valid"> Add Study</button>
-
-    </form>
-    
+      <!-- Button -->
+      <div class="button-study">
+        <ion-row>
+          <ion-col col-1></ion-col>
+          <ion-col center text-center col-10>
+            <button ion-button>
+              <ion-icon ios="ios-list" md="md-list" class="icon-color-green"></ion-icon>
+              ADD DIVISION
+            </button>
+          </ion-col>
+          <ion-col col-1></ion-col>
+        </ion-row>
+      </div>
+    </ion-card>
+  </div>
 
 </ion-content>

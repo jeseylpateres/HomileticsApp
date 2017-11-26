@@ -1,0 +1,25 @@
+<div>
+  <ion-grid no-padding>
+    <ion-row>
+      <ion-col col-2 class="text-center">
+        {{ checkProgressStatus() }} % Completed
+      </ion-col>
+      <ion-col col-2></ion-col>
+      <ion-col col-4>
+        <div class="text-center  icon-color-green">
+          <!-- Savings... -->
+        </div>
+      </ion-col>
+      <ion-col col-2 class="text-center">
+          <ion-icon ios="ios-eye" md="md-eye" class="icon-color-green"></ion-icon> 
+           Preview
+      </ion-col>
+      <ion-col col-2>
+          <ion-icon ios="ios-book" md="md-book" class="icon-color-green"></ion-icon> 
+           Open Bible
+      </ion-col>
+    </ion-row>
+    <progress [value]="checkProgressStatus()" [max]="progressMaxValue"></progress>
+  </ion-grid>
+</div>
+

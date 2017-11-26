@@ -25,14 +25,23 @@ ion-title {
 
 .menu-text {
   font-size: 14px;
+  line-height: 80px;
 }
 
 .text-center {
   text-align: center;
 }
 
-.icon-checkmark {
-  color: color($colors, secondary);
+.text-right {
+  text-align: right;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.icon-color-green {
+  color: color($colors, bg-homecolor-dark);
 }
 
 

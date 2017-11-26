@@ -1,340 +1,332 @@
-<ion-header>
-    <ion-navbar color="bg-dark" hideBackButton="true">
-        <ion-buttons left>
-            <button ion-button icon-only (click)="onLoadPage(90)">
-                <ion-icon ios="ios-menu" md="md-menu"></ion-icon>
-            </button>
-        </ion-buttons>
-        <ion-title>
-            <ion-buttons>
-                <button ion-button icon-only (click)="onLoadPage(1)">
-                    <ion-icon ios="ios-apps" md="md-apps"></ion-icon>
-                </button>
-            </ion-buttons>
-        </ion-title>
-        <ion-buttons end>
-            <button ion-button icon-only (click)="onLoadPage(2)">
-                <ion-icon ios="ios-add" md="md-add">
-                    <span class="menu-text"> Add Study</span>
-                </ion-icon>
-            </button>
-        </ion-buttons>
-    </ion-navbar>
-</ion-header>
+<ion-content>
+    <page-menu-header></page-menu-header>
+    <div class="main">
 
-<ion-content padding id="home">
+        <ion-toolbar no-padding>
+            <!-- GROUP A : ROW 1 -->
+            <ion-grid class="study-summary">
+                <!-- TABLE HEADER -->
+                <div class="table-study-head-list">
+                    <ion-row>
+                        <ion-col col-4>
+                            <div class="text-result">{{ homeModel.completeStudies }}</div>
+                            <div>Completed Studies</div>
+                        </ion-col>
+                        <ion-col col-4>
+                            <div class="text-result">{{ homeModel.ongoingStudies }}</div>
+                            <div>Ongoing Studies</div>
+                        </ion-col>
+                        <ion-col col-4>
+                            <div class="text-result">{{ homeModel.ongoingQuizes }}</div>
+                            <div>Quizes</div>
+                        </ion-col>
+                    </ion-row>
+                </div>
+                <!-- (END) TABLE HEADER -->
+            </ion-grid>
+        </ion-toolbar>
 
-    <ion-toolbar>
-        <!-- GROUP A : ROW 1 -->
-        <ion-grid class="study-summary">
-            <!-- TABLE HEADER -->
-            <div class="table-study-head-list">
-                <ion-row>
-                    <ion-col col-4>
-                        <div class="text-result">{{ homeModel.completeStudies }}</div>
-                        <div>Completed Studies</div>
-                    </ion-col>
-                    <ion-col col-4>
-                        <div class="text-result">{{ homeModel.ongoingStudies }}</div>
-                        <div>Ongoing Studies</div>
-                    </ion-col>
-                    <ion-col col-4>
-                        <div class="text-result">{{ homeModel.ongoingQuizes }}</div>
-                        <div>Quizes</div>
-                    </ion-col>
-                </ion-row>
-            </div>
-            <!-- (END) TABLE HEADER -->
-        </ion-grid>
-    </ion-toolbar>
-
-    <!-- 
+        <!-- 
         Component : SEGMENT
         segmentbook1 = ENTIRE BIBLE
         segmentbook2 = OLD TESTAMENT
         segmentbook3 = NEW TESTAMENT
     -->
-    <div padding class="table-segment">
-        <ion-segment [(ngModel)]="SegmentBookType">
-            <ion-segment-button value="entirebible" (click)="randomize(1)">
-                <div class="segment-text">ENTIRE BIBLE</div>
-            </ion-segment-button>
-            <ion-segment-button value="oldtestament" (click)="randomize(2)">
-                <div class="segment-text">OLD TESTAMENT</div>
-            </ion-segment-button>
-            <ion-segment-button value="newtestament" (click)="randomize(3)">
-                <div class="segment-text">NEW TESTAMENT</div>
-            </ion-segment-button>
-        </ion-segment>
-    </div>
+        <div padding class="table-segment">
+            <ion-segment [(ngModel)]="SegmentBookType">
+                <ion-segment-button value="entirebible" (click)="randomize(1)">
+                    <div class="segment-text">ENTIRE BIBLE</div>
+                </ion-segment-button>
+                <ion-segment-button value="oldtestament" (click)="randomize(2)">
+                    <div class="segment-text">OLD TESTAMENT</div>
+                </ion-segment-button>
+                <ion-segment-button value="newtestament" (click)="randomize(3)">
+                    <div class="segment-text">NEW TESTAMENT</div>
+                </ion-segment-button>
+            </ion-segment>
+        </div>
 
-    <div [ngSwitch]="SegmentBookType">
-        <!-- SEGMENT A : ENTIRE TESTAMENT -->
-        <ion-list *ngSwitchCase="'entirebible'">
+        <div [ngSwitch]="SegmentBookType">
+            <!-- SEGMENT A : ENTIRE TESTAMENT -->
+            <ion-list *ngSwitchCase="'entirebible'">
 
-            <div class="chart-content">
-                <div class="canvas-content">
-                    <canvas baseChart width="3500" height="200%" [chartType]="DashboardChart.chartType" [legend]="DashboardChart.chartLegend"
-                        [colors]="DashboardChart.chartColors" [options]="DashboardChart.chartDataPerBookType[0].chartOptions"
-                        [datasets]="DashboardChart.chartDataPerBookType[0].chartDataSet" [labels]="DashboardChart.chartDataPerBookType[0].chartLabels"
-                        (chartHover)="howeveredChartForOldAndNew($event)" (chartClick)="clickChartForOldAndNew($event)">
-                    </canvas>
-                </div>
-            </div>
-
-
-
-            <!-- GROUP C : book content, table list -->
-            <div id="entirebook-col1-row3">
-                <div class="table-study-header-list" padding>
-                    <div class="bible-testament">{{ (homeModel.bookTestament) | uppercase }}</div>
-                    <div class="bible-title">
-                        <strong>{{ homeModel.bookTitle }}</strong>
+                <div class="chart-content">
+                    <div class="canvas-content">
+                        <canvas baseChart width="3500" height="200%" [chartType]="DashboardChart.chartType" [legend]="DashboardChart.chartLegend"
+                            [colors]="DashboardChart.chartColors" [options]="DashboardChart.chartDataPerBookType[0].chartOptions"
+                            [datasets]="DashboardChart.chartDataPerBookType[0].chartDataSet" [labels]="DashboardChart.chartDataPerBookType[0].chartLabels"
+                            (chartHover)="howeveredChartForOldAndNew($event)" (chartClick)="clickChartForOldAndNew($event)">
+                        </canvas>
                     </div>
-                    <div class="div-study-status-detail">{{ homeModel.bookTotalStudies }} Studies * {{ homeModel.completeStudies }} Completed ({{ homeModel.percentageCompletion
-                        }} %)</div>
                 </div>
 
-                <!-- Header of Study List -->
-                <ion-grid class="table-content">
-                    <!-- TABLE HEADER -->
-                    <div class="table-study-head-list">
-                        <ion-row class="col-border">
-                            <!-- Column 1 -->
-                            <ion-col col-1 class="text-center">#</ion-col>
-                            <!-- Column 2 -->
-                            <ion-col>
-                                <strong>Reference</strong>
-                            </ion-col>
-                            <!-- Column 3 -->
-                            <ion-col col-7>
-                                <strong>Overall Subject Sentence</strong>
-                            </ion-col>
-                            <!-- Column 4 -->
-                            <ion-col col-2></ion-col>
-                        </ion-row>
+
+
+                <!-- GROUP C : book content, table list -->
+                <div id="entirebook-col1-row3">
+                    <div class="table-study-header-list" padding>
+                        <div class="bible-testament">{{ (homeModel.bookTestament) | uppercase }}</div>
+                        <div class="bible-title">
+                            <strong>{{ homeModel.bookTitle }}</strong>
+                        </div>
+                        <div class="div-study-status-detail">{{ homeModel.bookTotalStudies }} Studies * {{ homeModel.completeStudies }} Completed ({{ homeModel.percentageCompletion
+                            }} %)</div>
                     </div>
-                    <!-- (END) TABLE HEADER -->
+
+                    <!-- Header of Study List -->
+                    <ion-grid class="table-content">
+                        <!-- TABLE HEADER -->
+                        <div class="table-study-head-list">
+                            <ion-row class="col-border">
+                                <!-- Column 1 -->
+                                <ion-col col-1 class="text-center">#</ion-col>
+                                <!-- Column 2 -->
+                                <ion-col>
+                                    <strong>Reference</strong>
+                                </ion-col>
+                                <!-- Column 3 -->
+                                <ion-col col-7>
+                                    <strong>Overall Subject Sentence</strong>
+                                </ion-col>
+                                <!-- Column 4 -->
+                                <ion-col col-2></ion-col>
+                            </ion-row>
+                        </div>
+                        <!-- (END) TABLE HEADER -->
 
 
-                    <!-- TABLE BODY STUDY LIST -->
-                    <div class="table-study-body-list">
-                        <ion-row class="col-border" *ngFor="let study  of studylist" (click)="itemSelected(study)">
-                            <!-- Column 1 -->
-                            <ion-col col-1 class="text-center">
-                                <span id="item-status" [ngSwitch]="study.divStatus">
-                                    <span *ngSwitchCase="1">
-                                        <ion-icon ios="ios-checkmark-circle" md="md-checkmark-circle" class="icon-checkmark"></ion-icon>
+                        <!-- TABLE BODY STUDY LIST -->
+                        <div class="table-study-body-list">
+                            <ion-row class="col-border" *ngFor="let study  of studylist">
+                                <!-- Column 1 -->
+                                <ion-col col-1 class="text-center" (click)="itemSelected(study)">
+                                    <span id="item-status" [ngSwitch]="study.divStatus">
+                                        <span *ngSwitchCase="1">
+                                            <ion-icon ios="ios-checkmark-circle" md="md-checkmark-circle" class="icon-color-green"></ion-icon>
+                                        </span>
+                                        <span *ngSwitchCase="2">
+                                            <ion-icon ios="ios-checkmark-circle-outline" md="md-checkmark-circle-outline" class="icon-color-green"></ion-icon>
+                                        </span>
                                     </span>
-                                    <span *ngSwitchCase="2">
-                                        <ion-icon ios="ios-checkmark-circle-outline" md="md-checkmark-circle-outline" class="icon-checkmark"></ion-icon>
-                                    </span>
-                                </span>
-                            </ion-col>
-                            <!-- Column 2 -->
-                            <ion-col col-2>
-                                {{study.book}} {{study.chapter}}:{{study.divisionVerseStart}}-{{study.divisionVerseEnd}}
-                            </ion-col>
-                            <!-- Column 3 -->
-                            <ion-col col-7>
-                                {{study.summarySentense}}
-                            </ion-col>
-                            <!-- Column 4 -->
-                            <ion-col col-2>
-                                {{ (study.dateUpdated | date:'MM/dd/yyyy') | timeAgo}} <!-- timeAgo -->
-                            </ion-col>
-                        </ion-row>
-                    </div>
-                </ion-grid>
-                <!-- (END) Header of Study List -->
-            </div>
-            <!-- (END) ENTIRE TABLE : ROW1 -->
-        </ion-list>
-        <!-- (END) SEGMENT A : ENTIRE TESTAMENT -->
-
-
-
-        <!-- SEGMENT B : OLD Testament -->
-        <ion-list *ngSwitchCase="'oldtestament'">
-
-            <div class="chart-content">
-                <div class="canvas-content">
-                    <canvas baseChart width="2000" height="200%" [chartType]="DashboardChart.chartType" [legend]="DashboardChart.chartLegend"
-                        [colors]="DashboardChart.chartColors" [options]="DashboardChart.chartDataPerBookType[1].chartOptions"
-                        [datasets]="DashboardChart.chartDataPerBookType[1].chartDataSet" [labels]="DashboardChart.chartDataPerBookType[1].chartLabels"
-                        (chartHover)="howeveredChartForOld($event)" (chartClick)="clickChartForOld($event)">
-                    </canvas>
+                                </ion-col>
+                                <!-- Column 2 -->
+                                <ion-col col-2 (click)="itemSelected(study)">
+                                    {{study.book}} {{study.chapter}}:{{study.divisionVerseStart}}-{{study.divisionVerseEnd}}
+                                </ion-col>
+                                <!-- Column 3 -->
+                                <ion-col col-6 (click)="itemSelected(study)">
+                                    {{study.summarySentense}}
+                                </ion-col>
+                                <!-- Column 4 -->
+                                <ion-col col-2 text-right>
+                                    {{ (study.dateUpdated | date:'MM/dd/yyyy') | timeAgo}}
+                                    <!-- timeAgo -->
+                                </ion-col>
+                                <!-- Column 5 -->
+                                <ion-col collection-repeat="" col-1>
+                                    <ion-icon ios="ios-trash" md="md-trash" (click)="itemRemoved(study.bookId)" class="icon-color-green"></ion-icon>
+                                </ion-col>
+                            </ion-row>
+                        </div>
+                    </ion-grid>
+                    <!-- (END) Header of Study List -->
                 </div>
-            </div>
+                <!-- (END) ENTIRE TABLE : ROW1 -->
+            </ion-list>
+            <!-- (END) SEGMENT A : ENTIRE TESTAMENT -->
 
 
 
-            <!-- GROUP C : book content, table list -->
-            <div id="entirebook-col1-row3">
-                <div class="table-study-header-list" padding>
-                    <div class="bible-testament">{{ (homeModel.bookTestament) | uppercase }}</div>
-                    <div class="bible-title">
-                        <strong>{{ homeModel.bookTitle }}</strong>
+            <!-- SEGMENT B : OLD Testament -->
+            <ion-list *ngSwitchCase="'oldtestament'">
+
+                <div class="chart-content">
+                    <div class="canvas-content">
+                        <canvas baseChart width="2000" height="200%" [chartType]="DashboardChart.chartType" [legend]="DashboardChart.chartLegend"
+                            [colors]="DashboardChart.chartColors" [options]="DashboardChart.chartDataPerBookType[1].chartOptions"
+                            [datasets]="DashboardChart.chartDataPerBookType[1].chartDataSet" [labels]="DashboardChart.chartDataPerBookType[1].chartLabels"
+                            (chartHover)="howeveredChartForOld($event)" (chartClick)="clickChartForOld($event)">
+                        </canvas>
                     </div>
-                    <div class="div-study-status-detail">{{ homeModel.bookTotalStudies }} Studies * {{ homeModel.completeStudies }} Completed ({{ homeModel.percentageCompletion
-                        }} %)</div>
                 </div>
 
-                <!-- Header of Study List -->
-                <ion-grid class="table-content">
-                    <!-- TABLE HEADER -->
-                    <div class="table-study-head-list">
-                        <ion-row class="col-border">
-                            <!-- Column 1 -->
-                            <ion-col col-1 class="text-center">#</ion-col>
-                            <!-- Column 2 -->
-                            <ion-col>
-                                <strong>Reference</strong>
-                            </ion-col>
-                            <!-- Column 3 -->
-                            <ion-col col-7>
-                                <strong>Overall Subject Sentence</strong>
-                            </ion-col>
-                            <!-- Column 4 -->
-                            <ion-col col-2></ion-col>
-                        </ion-row>
+
+
+                <!-- GROUP C : book content, table list -->
+                <div id="entirebook-col1-row3">
+                    <div class="table-study-header-list" padding>
+                        <div class="bible-testament">{{ (homeModel.bookTestament) | uppercase }}</div>
+                        <div class="bible-title">
+                            <strong>{{ homeModel.bookTitle }}</strong>
+                        </div>
+                        <div class="div-study-status-detail">{{ homeModel.bookTotalStudies }} Studies * {{ homeModel.completeStudies }} Completed ({{ homeModel.percentageCompletion
+                            }} %)</div>
                     </div>
-                    <!-- (END) TABLE HEADER -->
+
+                    <!-- Header of Study List -->
+                    <ion-grid class="table-content">
+                        <!-- TABLE HEADER -->
+                        <div class="table-study-head-list">
+                            <ion-row class="col-border">
+                                <!-- Column 1 -->
+                                <ion-col col-1 class="text-center">#</ion-col>
+                                <!-- Column 2 -->
+                                <ion-col>
+                                    <strong>Reference</strong>
+                                </ion-col>
+                                <!-- Column 3 -->
+                                <ion-col col-7>
+                                    <strong>Overall Subject Sentence</strong>
+                                </ion-col>
+                                <!-- Column 4 -->
+                                <ion-col col-2></ion-col>
+                            </ion-row>
+                        </div>
+                        <!-- (END) TABLE HEADER -->
 
 
-                    <!-- TABLE BODY -->
-                    <div class="table-study-body-list">
-                        <ion-row class="col-border" *ngFor="let study  of studylist" (click)="itemSelected(study)">
-                            <!-- Column 1 -->
-                            <ion-col col-1 class="text-center">
-                                <span id="item-status" [ngSwitch]="study.divStatus">
-                                    <span *ngSwitchCase="1">
-                                        <ion-icon ios="ios-checkmark-circle" md="md-checkmark-circle" class="icon-checkmark"></ion-icon>
+                        <!-- TABLE BODY -->
+                        <div class="table-study-body-list">
+                            <ion-row class="col-border" *ngFor="let study  of studylist">
+                                <!-- Column 1 -->
+                                <ion-col col-1 class="text-center" (click)="itemSelected(study)">
+                                    <span id="item-status" [ngSwitch]="study.divStatus">
+                                        <span *ngSwitchCase="1">
+                                            <ion-icon ios="ios-checkmark-circle" md="md-checkmark-circle" class="icon-color-green"></ion-icon>
+                                        </span>
+                                        <span *ngSwitchCase="2">
+                                            <ion-icon ios="ios-checkmark-circle-outline" md="md-checkmark-circle-outline" class="icon-color-green"></ion-icon>
+                                        </span>
                                     </span>
-                                    <span *ngSwitchCase="2">
-                                        <ion-icon ios="ios-checkmark-circle-outline" md="md-checkmark-circle-outline" class="icon-checkmark"></ion-icon>
-                                    </span>
-                                </span>
-                            </ion-col>
-                            <!-- Column 2 -->
-                            <ion-col col-2>
-                                {{study.book}} {{study.chapter}}:{{study.divisionVerseStart}}-{{study.divisionVerseEnd}}
-                            </ion-col>
-                            <!-- Column 3 -->
-                            <ion-col col-7>
-                                {{study.summarySentense}}
-                            </ion-col>
-                            <!-- Column 4 -->
-                            <ion-col col-2>
-                                {{study.dateUpdated | timeAgo}}
-                            </ion-col>
-                        </ion-row>
-                    </div>
-                </ion-grid>
-                <!-- (END) Header of Study List -->
-            </div>
-            <!-- (END) ENTIRE TABLE : ROW1 -->
-        </ion-list>
-        <!-- (END) SEGMENT B : OLD Testament -->
+                                </ion-col>
+                                <!-- Column 2 -->
+                                <ion-col col-2 (click)="itemSelected(study)">
+                                    {{study.book}} {{study.chapter}}:{{study.divisionVerseStart}}-{{study.divisionVerseEnd}}
+                                </ion-col>
+                                <!-- Column 3 -->
+                                <ion-col col-6 (click)="itemSelected(study)">
+                                    {{study.summarySentense}}
+                                </ion-col>
+                                <!-- Column 4 -->
+                                <ion-col col-2 text-right>
+                                    {{study.dateUpdated | timeAgo}}
+                                </ion-col>
+                                <!-- Column 5 -->
+                                <ion-col col-1>
+                                    <ion-icon ios="ios-trash" md="md-trash" (click)="itemRemoved(study.bookId)" class="icon-color-green"></ion-icon>
+                                </ion-col>
+                            </ion-row>
+                        </div>
+                    </ion-grid>
+                    <!-- (END) Header of Study List -->
+                </div>
+                <!-- (END) ENTIRE TABLE : ROW1 -->
+            </ion-list>
+            <!-- (END) SEGMENT B : OLD Testament -->
 
 
 
-        <!--
+            <!--
             SEGMENT C : NEW Testament 
         -->
-        <ion-list *ngSwitchCase="'newtestament'">
+            <ion-list *ngSwitchCase="'newtestament'">
 
-            <div class="chart-content">
-                <div class="canvas-content">
-                    <canvas baseChart width="1500" height="200%" [chartType]="DashboardChart.chartType" [legend]="DashboardChart.chartLegend"
-                        [colors]="DashboardChart.chartColors" [options]="DashboardChart.chartDataPerBookType[2].chartOptions"
-                        [datasets]="DashboardChart.chartDataPerBookType[2].chartDataSet" [labels]="DashboardChart.chartDataPerBookType[2].chartLabels"
-                        (chartHover)="howeveredChartForNew($event)" (chartClick)="clickChartForNew($event)">
-                    </canvas>
-                </div>
-            </div>
-
-
-
-            <!-- GROUP C : book content, table list -->
-            <div id="entirebook-col1-row3">
-                <div class="table-study-header-list" padding>
-                    <div class="bible-testament">{{ (homeModel.bookTestament) | uppercase }}</div>
-                    <div class="bible-title">
-                        <strong>{{ homeModel.bookTitle }}</strong>
+                <div class="chart-content">
+                    <div class="canvas-content">
+                        <canvas baseChart width="1500" height="200%" [chartType]="DashboardChart.chartType" [legend]="DashboardChart.chartLegend"
+                            [colors]="DashboardChart.chartColors" [options]="DashboardChart.chartDataPerBookType[2].chartOptions"
+                            [datasets]="DashboardChart.chartDataPerBookType[2].chartDataSet" [labels]="DashboardChart.chartDataPerBookType[2].chartLabels"
+                            (chartHover)="howeveredChartForNew($event)" (chartClick)="clickChartForNew($event)">
+                        </canvas>
                     </div>
-                    <div class="div-study-status-detail">{{ homeModel.bookTotalStudies }} Studies * {{ homeModel.completeStudies }} Completed ({{ homeModel.percentageCompletion
-                        }} %)</div>
                 </div>
 
-                <!-- Header of Study List -->
-                <ion-grid class="table-content">
-                    <!-- TABLE HEADER -->
-                    <div class="table-study-head-list">
-                        <ion-row class="col-border">
-                            <!-- Column 1 -->
-                            <ion-col col-1 class="text-center">#</ion-col>
-                            <!-- Column 2 -->
-                            <ion-col>
-                                <strong>Reference</strong>
-                            </ion-col>
-                            <!-- Column 3 -->
-                            <ion-col col-7>
-                                <strong>Overall Subject Sentence</strong>
-                            </ion-col>
-                            <!-- Column 4 -->
-                            <ion-col col-2></ion-col>
-                        </ion-row>
+
+
+                <!-- GROUP C : book content, table list -->
+                <div id="entirebook-col1-row3">
+                    <div class="table-study-header-list" padding>
+                        <div class="bible-testament">{{ (homeModel.bookTestament) | uppercase }}</div>
+                        <div class="bible-title">
+                            <strong>{{ homeModel.bookTitle }}</strong>
+                        </div>
+                        <div class="div-study-status-detail">{{ homeModel.bookTotalStudies }} Studies * {{ homeModel.completeStudies }} Completed ({{ homeModel.percentageCompletion
+                            }} %)</div>
                     </div>
-                    <!-- (END) TABLE HEADER -->
+
+                    <!-- Header of Study List -->
+                    <ion-grid class="table-content">
+                        <!-- TABLE HEADER -->
+                        <div class="table-study-head-list">
+                            <ion-row class="col-border">
+                                <!-- Column 1 -->
+                                <ion-col col-1 class="text-center">#</ion-col>
+                                <!-- Column 2 -->
+                                <ion-col>
+                                    <strong>Reference</strong>
+                                </ion-col>
+                                <!-- Column 3 -->
+                                <ion-col col-7>
+                                    <strong>Overall Subject Sentence</strong>
+                                </ion-col>
+                                <!-- Column 4 -->
+                                <ion-col col-2></ion-col>
+                            </ion-row>
+                        </div>
+                        <!-- (END) TABLE HEADER -->
 
 
-                    <!-- TABLE BODY -->
-                    <div class="table-study-body-list">
-                        <ion-row class="col-border" *ngFor="let study  of studylist" (click)="itemSelected(study)">
-                            <!-- Column 1 -->
-                            <ion-col col-1 class="text-center">
-                                <span id="item-status" [ngSwitch]="study.divStatus">
-                                    <span *ngSwitchCase="1">
-                                        <ion-icon ios="ios-checkmark-circle" md="md-checkmark-circle" class="icon-checkmark"></ion-icon>
+                        <!-- TABLE BODY -->
+                        <div class="table-study-body-list">
+                            <ion-row class="col-border" *ngFor="let study  of studylist">
+                                <!-- Column 1 -->
+                                <ion-col col-1 class="text-center" (click)="itemSelected(study)">
+                                    <span id="item-status" [ngSwitch]="study.divStatus">
+                                        <span *ngSwitchCase="1">
+                                            <ion-icon ios="ios-checkmark-circle" md="md-checkmark-circle" class="icon-color-green"></ion-icon>
+                                        </span>
+                                        <span *ngSwitchCase="2">
+                                            <ion-icon ios="ios-checkmark-circle-outline" md="md-checkmark-circle-outline" class="icon-color-green"></ion-icon>
+                                        </span>
                                     </span>
-                                    <span *ngSwitchCase="2">
-                                        <ion-icon ios="ios-checkmark-circle-outline" md="md-checkmark-circle-outline" class="icon-checkmark"></ion-icon>
-                                    </span>
-                                </span>
-                            </ion-col>
-                            <!-- Column 2 -->
-                            <ion-col col-2>
-                                {{study.book}} {{study.chapter}}:{{study.divisionVerseStart}}-{{study.divisionVerseEnd}}
-                            </ion-col>
-                            <!-- Column 3 -->
-                            <ion-col col-7>
-                                {{study.summarySentense}}
-                            </ion-col>
-                            <!-- Column 4 -->
-                            <ion-col col-2>
-                                {{study.dateUpdated | timeAgo}}
-                            </ion-col>
-                        </ion-row>
-                    </div>
-                </ion-grid>
-                <!-- (END) Header of Study List -->
-            </div>
-            <!-- (END) ENTIRE TABLE : ROW1 -->
-        </ion-list>
-        <!-- (END) SEGMENT C : NEW Testament -->
-    </div>
-    <!-- end-->
+                                </ion-col>
+                                <!-- Column 2 -->
+                                <ion-col col-2 (click)="itemSelected(study)">
+                                    {{study.book}} {{study.chapter}}:{{study.divisionVerseStart}}-{{study.divisionVerseEnd}}
+                                </ion-col>
+                                <!-- Column 3 -->
+                                <ion-col col-6 (click)="itemSelected(study)">
+                                    {{study.summarySentense}}
+                                </ion-col>
+                                <!-- Column 4 -->
+                                <ion-col col-2 text-right>
+                                    {{study.dateUpdated | timeAgo}}
+                                </ion-col>
+                                <!-- Column 5 -->
+                                <ion-col col-1>
+                                    <ion-icon ios="ios-trash" md="md-trash" (click)="itemRemoved(study.bookId)" class="icon-color-green"></ion-icon>
+                                </ion-col>
+                            </ion-row>
+                        </div>
+                    </ion-grid>
+                    <!-- (END) Header of Study List -->
+                </div>
+                <!-- (END) ENTIRE TABLE : ROW1 -->
+            </ion-list>
+            <!-- (END) SEGMENT C : NEW Testament -->
+        </div>
+        <!-- end-->
 
-    <!-- Button -->
-    <div class="button-study">
-        <ion-row>
-            <ion-col col-1></ion-col>
-            <ion-col center text-center col-10>
-                <button ion-button round large color="bg-homecolor" (click)="onLoadPage(2)">Start a New Study</button>
-            </ion-col>
-            <ion-col col-1></ion-col>
-        </ion-row>
-    </div>
+        <!-- Button -->
+        <div class="button-study">
+            <ion-row>
+                <ion-col col-1></ion-col>
+                <ion-col center text-center col-10>
+                    <button ion-button round large color="bg-homecolor" (click)="onLoadPage(2)">Start a New Study</button>
+                </ion-col>
+                <ion-col col-1></ion-col>
+            </ion-row>
+        </div>
 
+    </div><!-- main end -->
 </ion-content>

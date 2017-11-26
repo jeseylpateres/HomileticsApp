@@ -103,9 +103,21 @@ export class HomePage implements OnInit {
    * @param item 
    */
   itemSelected(item: string) {
-    console.log("Selected Item", item);
+    // console.log("Selected Item", item);
     this.navCtrl.push(StudyPreviewPage, item);
   }
+
+  /**
+   * ItemRemove from StudyList
+   * Load to StudyInputPage with NavParams
+   * 
+   * @param item 
+   */
+  itemRemoved(item: string) {
+    console.log("Remove Item", item);
+    //this.navCtrl.push(StudyPreviewPage, item);
+  }
+
 
   /**
    * [PUBLIC]
@@ -128,9 +140,9 @@ export class HomePage implements OnInit {
 
           this.studylist = this.studyListService.getStudyList(0, BookType.OldAndNewTestament);
 
-          clone = JSON.parse(JSON.stringify(this.DashboardChart.chartDataPerBookType[0].chartDataSet));
-          clone[0].data = this.bibleService.setRandomDataForAllChapters(BookType.OldAndNewTestament);
-          this.DashboardChart.chartDataPerBookType[0].chartDataSet = clone;
+          //clone = JSON.parse(JSON.stringify(this.DashboardChart.chartDataPerBookType[0].chartDataSet));
+          //clone[0].data = this.bibleService.setRandomDataForAllChapters(BookType.OldAndNewTestament);
+          //this.DashboardChart.chartDataPerBookType[0].chartDataSet = clone;
 
           this.generateStudyComputation(this.bibleService.getIndexData(), this.DashboardChart.chartDataPerBookType[0].chartDataSet[1].data[0]);
         }

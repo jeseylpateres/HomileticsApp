@@ -1,0 +1,14 @@
+<ion-toolbar no-padding>
+  <ion-grid class="study-summary">
+    <!-- TABLE HEADER -->
+    <div class="table-study-head-list">
+      <ion-row>
+        <ion-col col-12>
+          <div class="text-result" *ngIf="!checkValueIsEmpty()">{{ book }} </div>
+          <div class="text-result" *ngIf="checkValueIsEmpty()">{{ book }} {{ chapter }} : {{ verseStart }} ~ {{ verseEnd }}</div>
+        </ion-col>
+      </ion-row>
+    </div>
+    <!-- (END) TABLE HEADER -->
+  </ion-grid>
+</ion-toolbar>

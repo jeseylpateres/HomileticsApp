@@ -1,4 +1,7 @@
 page-home {
+  .main {
+      padding-top: 55px;
+  }
   .study-summary {
     border: 0px;
     text-align: center;
@@ -75,6 +78,9 @@ page-home {
   }
   /* Extra Small Devices, Phones */
   @media only screen and (min-width: 320px) and (max-width: 760px) {
+    .main {
+        padding-top: 75px;
+    }
     .text-result {
       font-size: 20px;
       font-family: Karla-Regular;
@@ -94,6 +100,9 @@ page-home {
   }
   /* Small Devices, Tablets */
   @media only screen and (min-width: 768px) and (max-width: 1200px) {
+    .main {
+        padding-top: 75px;
+    }
     //height: 250px;
     .text-result {
       font-size: 30px;
