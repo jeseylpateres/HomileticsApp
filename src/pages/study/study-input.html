@@ -36,6 +36,8 @@
 
   <div class="main">
     <page-menu-header></page-menu-header>
+
+
     <ion-toolbar no-padding>
       <!-- GROUP A : ROW 1 -->
       <ion-grid class="study-summary">
@@ -50,7 +52,32 @@
         <!-- (END) TABLE HEADER -->
       </ion-grid>
     </ion-toolbar>
-    <page-biblestudy-progressbar></page-biblestudy-progressbar>
+    <!-- <page-biblestudy-progressbar></page-biblestudy-progressbar> -->
+    <!-- Progress Bar -->
+    <div class="progress-bar">
+      <ion-grid no-padding>
+        <ion-row class="progress-bar-height">
+          <ion-col col-2 class="text-center">
+            {{ checkProgressStatus() }} %&nbsp;Completed
+          </ion-col>
+          <ion-col col-2></ion-col>
+          <ion-col col-4>
+            <div class="text-center  icon-color-green">
+              <!-- Savings... -->
+            </div>
+          </ion-col>
+          <ion-col col-2 class="text-center">
+            <ion-icon ios="ios-eye" md="md-eye" class="icon-color-green"></ion-icon>
+            Preview
+          </ion-col>
+          <ion-col col-2>
+            <ion-icon ios="ios-book" md="md-book" class="icon-color-green"></ion-icon>
+            Open Bible
+          </ion-col>
+        </ion-row>
+        <progress [value]="checkProgressStatus()" [max]="progressMaxValue"></progress>
+      </ion-grid>
+    </div>
     <ion-card class="card-full-height">
       <!-- SearchBox -->
       <div>
@@ -70,9 +97,64 @@
           required (keyup)="0" (search)="onSearch()" (ionCancel)="onClear()">
         </ion-searchbar>
       </div>
-      <!-- <span *ngIf="isDisplay">
-            {{ myInput }}
-          </span> -->
+      <div *ngIf="isDisplay">
+        <ion-grid no-padding>
+          <!-- From: -->
+          <ion-row class="progress-bar-height">
+            <ion-col col-1><span style="padding-left:25px">From:</span></ion-col>
+            <ion-col col-3 justify-content-center align-items-center>
+              <!-- Chapter From: -->
+              <ion-select class="col col-33" [(ngModel)]="chapterStart" placeholder="Select Chapter">
+                <ion-option *ngFor="let chapterValue of chapterStartList" (ionSelect)="getVerses($event, 1)" value="{{chapterValue}}">Chapter&nbsp;{{chapterValue}}</ion-option>
+              </ion-select>
+            </ion-col>
+            <ion-col col-3>
+              <!-- Verse From: -->
+              <ion-select class="col col-33" [(ngModel)]="verseStart" (click)="generateVerseFromChapterSelected()" placeholder="Select Verse">
+                <ion-option *ngFor="let verseValue of verseStartList" value="{{verseValue}}">Verse&nbsp;{{verseValue}}</ion-option>
+              </ion-select>
+            </ion-col>
+            <ion-col col-5>&nbsp;</ion-col>
+          </ion-row>
+          <!-- To: -->
+          <ion-row class="progress-bar-height">
+            <ion-col col-1><span style="padding-left:25px">To:</span></ion-col>
+            <ion-col col-3 justify-content-center align-items-center>
+              <!-- Chapter To: -->
+              <ion-select class="col col-33" [(ngModel)]="chapterEnd" placeholder="Select Chapter">
+                <ion-option *ngFor="let chapterEndValue of chapterEndList" (ionSelect)="getVerses($event, 2)" value="{{chapterEndValue}}">Chapter&nbsp;{{chapterEndValue}}</ion-option>
+              </ion-select>
+            </ion-col>
+            <ion-col col-3>
+              <!-- Verse To: -->
+              <ion-select class="col col-33" [(ngModel)]="verseEnd" placeholder="Select Verse">
+                  <ion-option *ngFor="let verseValue of verseEndList" value="{{verseValue}}">Verse&nbsp;{{verseValue}}</ion-option>
+              </ion-select>
+            </ion-col>
+            <ion-col col-5>&nbsp;</ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+      <div class="division-area">
+        <div class="txt-color-green text-bold">DIVISION 1</div>
+
+        <ion-item>
+          <a href="#">
+            <!-- style="text-decoration:none"> -->
+            <ion-icon ios="ios-add-circle" md="md-add-circle" class="icon-color-green"></ion-icon>
+            &nbsp;ADD VERSE
+          </a>
+        </ion-item>
+
+        <ion-item>
+          <ion-label floating>Division Summary Sentence</ion-label>
+          <ion-textarea type="text" id="divisionSummarySentence"></ion-textarea>
+        </ion-item>
+        <ion-item>
+          <ion-label floating>Real Life Application Challenge</ion-label>
+          <ion-textarea type="text" id="realLifeApplicatioNChallenge"></ion-textarea>
+        </ion-item>
+      </div>
 
       <!-- Button -->
       <div class="button-study">
@@ -90,4 +172,4 @@
     </ion-card>
   </div>
 
-<!-- </ion-content> -->
+  <!-- </ion-content> -->

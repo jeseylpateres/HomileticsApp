@@ -11,6 +11,7 @@ export const BibleStudies: StudyUser[] = [
                 bookId: 1,
                 book: "Genesis",
                 chapter: 3,
+                chapterEnd: 3,
                 verseStart: 1,
                 verseEnd: 12,
                 status: true,
@@ -20,21 +21,25 @@ export const BibleStudies: StudyUser[] = [
                         divisionVerseStart: 1,
                         verseContents: [
                             {
+                                chapter: 3,
                                 verse: 1,
                                 content: "Paul Silas, Genesis' church in God/Fait...",
                                 status: true
                             }
                             , {
+                                chapter: 3,
                                 verse: 2,
                                 content: "Always thank God for you in prayer...",
                                 status: true
                             }
                             , {
+                                chapter: 3,
                                 verse: 3,
                                 content: "continually remembering our faith work, love, steady...",
                                 status: true
                             }
                             , {
+                                chapter: 3,
                                 verse: 4,
                                 content: "Paul Silas, Genesis' church in God/Fait...",
                                 status: true
@@ -51,21 +56,25 @@ export const BibleStudies: StudyUser[] = [
                         divisionVerseStart: 5,
                         verseContents: [
                             {
+                                chapter: 3,
                                 verse: 5,
                                 content: "Always thank God for you in prayer...",
                                 status: true
                             }
                             , {
+                                chapter: 3,
                                 verse: 6,
                                 content: "continually remembering our faith work, love, steady...",
                                 status: true
                             }
                             , {
+                                chapter: 3,
                                 verse: 7,
                                 content: "continually remembering our faith work, love, steady...",
                                 status: true
                             }
                             , {
+                                chapter: 3,
                                 verse: 8,
                                 content: "Paul Silas, Genesis' church in God/Fait...",
                                 status: true
@@ -82,11 +91,13 @@ export const BibleStudies: StudyUser[] = [
                         divisionVerseStart: 9,
                         verseContents: [
                             {
+                                chapter: 3,
                                 verse: 9,
                                 content: "Always thank God for you in prayer...",
                                 status: true
                             }
                             , {
+                                chapter: 3,
                                 verse: 10,
                                 content: "continually remembering our faith work, love, steady...",
                                 status: true
@@ -103,11 +114,13 @@ export const BibleStudies: StudyUser[] = [
                         divisionVerseStart: 11,
                         verseContents: [
                             {
+                                chapter: 3,
                                 verse: 11,
                                 content: "continually remembering our faith work, love, steady...",
                                 status: true
                             }
                             , {
+                                chapter: 3,
                                 verse: 12,
                                 content: "continually remembering our faith work, love, steady...",
                                 status: true
@@ -127,6 +140,7 @@ export const BibleStudies: StudyUser[] = [
                 bookId: 52,
                 book: "1 Thessalonians",
                 chapter: 1,
+                chapterEnd: 1,
                 verseStart: 1,
                 verseEnd: 10,
                 status: false,
@@ -136,16 +150,19 @@ export const BibleStudies: StudyUser[] = [
                         divisionVerseStart: 1,
                         verseContents: [
                             {
+                                chapter: 1,
                                 verse: 1,
                                 content: "Paul Silas, Thessalonians' church in God/Fait...",
                                 status: true
                             }
                             , {
+                                chapter: 1,
                                 verse: 2,
                                 content: "Always thank God for you in prayer...",
                                 status: true
                             }
                             , {
+                                chapter: 1,
                                 verse: 3,
                                 content: "continually remembering our faith work, love, steady...",
                                 status: true
@@ -162,21 +179,25 @@ export const BibleStudies: StudyUser[] = [
                         divisionVerseStart: 4,
                         verseContents: [
                             {
+                                chapter: 1,
                                 verse: 4,
                                 content: "Paul Silas, Thessalonians' church in God/Fait...",
                                 status: true
                             }
                             , {
+                                chapter: 1,
                                 verse: 5,
                                 content: "Always thank God for you in prayer...",
                                 status: true
                             }
                             , {
+                                chapter: 1,
                                 verse: 6,
                                 content: "continually remembering our faith work, love, steady...",
                                 status: true
                             }
                             , {
+                                chapter: 1,
                                 verse: 7,
                                 content: "continually remembering our faith work, love, steady...",
                                 status: true
@@ -193,16 +214,19 @@ export const BibleStudies: StudyUser[] = [
                         divisionVerseStart: 8,
                         verseContents: [
                             {
+                                chapter: 1,
                                 verse: 8,
                                 content: "Paul Silas, Thessalonians' church in God/Fait...",
                                 status: true
                             }
                             , {
+                                chapter: 1,
                                 verse: 9,
                                 content: "Always thank God for you in prayer...",
                                 status: true
                             }
                             , {
+                                chapter: 1,
                                 verse: 10,
                                 content: "",
                                 status: false
@@ -223,6 +247,7 @@ export const BibleStudies: StudyUser[] = [
                 bookId: 40,
                 book: "Matthew",
                 chapter: 3,
+                chapterEnd: 3,
                 verseStart: 1,
                 verseEnd: 12,
                 status: true,
@@ -232,21 +257,25 @@ export const BibleStudies: StudyUser[] = [
                         divisionVerseStart: 1,
                         verseContents: [
                             {
+                                chapter: 3,
                                 verse: 1,
                                 content: "Paul Silas, Genesis' church in God/Fait...",
                                 status: true
                             }
                             , {
+                                chapter: 3,
                                 verse: 2,
                                 content: "Always thank God for you in prayer...",
                                 status: true
                             }
                             , {
+                                chapter: 3,
                                 verse: 3,
                                 content: "continually remembering our faith work, love, steady...",
                                 status: true
                             }
                             , {
+                                chapter: 3,
                                 verse: 4,
                                 content: "Paul Silas, Genesis' church in God/Fait...",
                                 status: true
@@ -263,21 +292,25 @@ export const BibleStudies: StudyUser[] = [
                         divisionVerseStart: 5,
                         verseContents: [
                             {
+                                chapter: 3,
                                 verse: 5,
                                 content: "Always thank God for you in prayer...",
                                 status: true
                             }
                             , {
+                                chapter: 3,
                                 verse: 6,
                                 content: "continually remembering our faith work, love, steady...",
                                 status: true
                             }
                             , {
+                                chapter: 3,
                                 verse: 7,
                                 content: "continually remembering our faith work, love, steady...",
                                 status: true
                             }
                             , {
+                                chapter: 3,
                                 verse: 8,
                                 content: "Paul Silas, Genesis' church in God/Fait...",
                                 status: true
@@ -294,11 +327,13 @@ export const BibleStudies: StudyUser[] = [
                         divisionVerseStart: 9,
                         verseContents: [
                             {
+                                chapter: 3,
                                 verse: 9,
                                 content: "Always thank God for you in prayer...",
                                 status: true
                             }
                             , {
+                                chapter: 3,
                                 verse: 10,
                                 content: "continually remembering our faith work, love, steady...",
                                 status: true
@@ -315,11 +350,13 @@ export const BibleStudies: StudyUser[] = [
                         divisionVerseStart: 11,
                         verseContents: [
                             {
+                                chapter: 3,
                                 verse: 11,
                                 content: "continually remembering our faith work, love, steady...",
                                 status: true
                             }
                             , {
+                                chapter: 3,
                                 verse: 12,
                                 content: "continually remembering our faith work, love, steady...",
                                 status: true
@@ -339,6 +376,7 @@ export const BibleStudies: StudyUser[] = [
                 bookId: 66,
                 book: "Revelation",
                 chapter: 1,
+                chapterEnd: 1,
                 verseStart: 1,
                 verseEnd: 10,
                 status: false,
@@ -348,16 +386,19 @@ export const BibleStudies: StudyUser[] = [
                         divisionVerseStart: 1,
                         verseContents: [
                             {
+                                chapter: 1,
                                 verse: 1,
                                 content: "Paul Silas, Thessalonians' church in God/Fait...",
                                 status: true
                             }
                             , {
+                                chapter: 1,
                                 verse: 2,
                                 content: "Always thank God for you in prayer...",
                                 status: true
                             }
                             , {
+                                chapter: 1,
                                 verse: 3,
                                 content: "continually remembering our faith work, love, steady...",
                                 status: true
@@ -374,21 +415,25 @@ export const BibleStudies: StudyUser[] = [
                         divisionVerseStart: 4,
                         verseContents: [
                             {
+                                chapter: 1,
                                 verse: 4,
                                 content: "Paul Silas, Thessalonians' church in God/Fait...",
                                 status: true
                             }
                             , {
+                                chapter: 1,
                                 verse: 5,
                                 content: "Always thank God for you in prayer...",
                                 status: true
                             }
                             , {
+                                chapter: 1,
                                 verse: 6,
                                 content: "continually remembering our faith work, love, steady...",
                                 status: true
                             }
                             , {
+                                chapter: 1,
                                 verse: 7,
                                 content: "continually remembering our faith work, love, steady...",
                                 status: true
@@ -405,16 +450,19 @@ export const BibleStudies: StudyUser[] = [
                         divisionVerseStart: 8,
                         verseContents: [
                             {
+                                chapter: 1,
                                 verse: 8,
                                 content: "Paul Silas, Thessalonians' church in God/Fait...",
                                 status: true
                             }
                             , {
+                                chapter: 1,
                                 verse: 9,
                                 content: "Always thank God for you in prayer...",
                                 status: true
                             }
                             , {
+                                chapter: 1,
                                 verse: 10,
                                 content: "",
                                 status: false
@@ -445,6 +493,7 @@ export const BibleStudies: StudyUser[] = [
                 bookId: 40,
                 book: "Matthew",
                 chapter: 3,
+                chapterEnd: 3,
                 verseStart: 1,
                 verseEnd: 12,
                 status: true,
@@ -454,21 +503,25 @@ export const BibleStudies: StudyUser[] = [
                         divisionVerseStart: 1,
                         verseContents: [
                             {
+                                chapter: 3,
                                 verse: 1,
                                 content: "Paul Silas, Genesis' church in God/Fait...",
                                 status: true
                             }
                             , {
+                                chapter: 3,
                                 verse: 2,
                                 content: "Always thank God for you in prayer...",
                                 status: true
                             }
                             , {
+                                chapter: 3,
                                 verse: 3,
                                 content: "continually remembering our faith work, love, steady...",
                                 status: true
                             }
                             , {
+                                chapter: 3,
                                 verse: 4,
                                 content: "Paul Silas, Genesis' church in God/Fait...",
                                 status: true
@@ -485,21 +538,25 @@ export const BibleStudies: StudyUser[] = [
                         divisionVerseStart: 5,
                         verseContents: [
                             {
+                                chapter: 3,
                                 verse: 5,
                                 content: "Always thank God for you in prayer...",
                                 status: true
                             }
                             , {
+                                chapter: 3,
                                 verse: 6,
                                 content: "continually remembering our faith work, love, steady...",
                                 status: true
                             }
                             , {
+                                chapter: 3,
                                 verse: 7,
                                 content: "continually remembering our faith work, love, steady...",
                                 status: true
                             }
                             , {
+                                chapter: 3,
                                 verse: 8,
                                 content: "Paul Silas, Genesis' church in God/Fait...",
                                 status: true
@@ -516,11 +573,13 @@ export const BibleStudies: StudyUser[] = [
                         divisionVerseStart: 9,
                         verseContents: [
                             {
+                                chapter: 3,
                                 verse: 9,
                                 content: "Always thank God for you in prayer...",
                                 status: true
                             }
                             , {
+                                chapter: 3,
                                 verse: 10,
                                 content: "continually remembering our faith work, love, steady...",
                                 status: true
@@ -537,11 +596,13 @@ export const BibleStudies: StudyUser[] = [
                         divisionVerseStart: 11,
                         verseContents: [
                             {
+                                chapter: 3,
                                 verse: 11,
                                 content: "continually remembering our faith work, love, steady...",
                                 status: true
                             }
                             , {
+                                chapter: 3,
                                 verse: 12,
                                 content: "continually remembering our faith work, love, steady...",
                                 status: true
@@ -561,6 +622,7 @@ export const BibleStudies: StudyUser[] = [
                 bookId: 66,
                 book: "Revelation",
                 chapter: 1,
+                chapterEnd: 1,
                 verseStart: 1,
                 verseEnd: 10,
                 status: false,
@@ -570,16 +632,19 @@ export const BibleStudies: StudyUser[] = [
                         divisionVerseStart: 1,
                         verseContents: [
                             {
+                                chapter: 1,
                                 verse: 1,
                                 content: "Paul Silas, Thessalonians' church in God/Fait...",
                                 status: true
                             }
                             , {
+                                chapter: 1,
                                 verse: 2,
                                 content: "Always thank God for you in prayer...",
                                 status: true
                             }
                             , {
+                                chapter: 1,
                                 verse: 3,
                                 content: "continually remembering our faith work, love, steady...",
                                 status: true
@@ -596,21 +661,25 @@ export const BibleStudies: StudyUser[] = [
                         divisionVerseStart: 4,
                         verseContents: [
                             {
+                                chapter: 1,
                                 verse: 4,
                                 content: "Paul Silas, Thessalonians' church in God/Fait...",
                                 status: true
                             }
                             , {
+                                chapter: 1,
                                 verse: 5,
                                 content: "Always thank God for you in prayer...",
                                 status: true
                             }
                             , {
+                                chapter: 1,
                                 verse: 6,
                                 content: "continually remembering our faith work, love, steady...",
                                 status: true
                             }
                             , {
+                                chapter: 1,
                                 verse: 7,
                                 content: "continually remembering our faith work, love, steady...",
                                 status: true
@@ -627,16 +696,19 @@ export const BibleStudies: StudyUser[] = [
                         divisionVerseStart: 8,
                         verseContents: [
                             {
+                                chapter: 1,
                                 verse: 8,
                                 content: "Paul Silas, Thessalonians' church in God/Fait...",
                                 status: true
                             }
                             , {
+                                chapter: 1,
                                 verse: 9,
                                 content: "Always thank God for you in prayer...",
                                 status: true
                             }
                             , {
+                                chapter: 1,
                                 verse: 10,
                                 content: "",
                                 status: false

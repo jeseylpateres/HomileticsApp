@@ -4,6 +4,7 @@ export class StudyBible {
     bookId: number;
     book: string;
     chapter: number;
+    chapterEnd: number;
     verseStart: number;
     verseEnd: number;
     status: boolean;

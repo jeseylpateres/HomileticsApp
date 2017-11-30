@@ -29,13 +29,24 @@ import { MenuPage } from "../menu/menu";
 })
 export class StudyInputPage {
   private searchQuerybible: string;
+  private chapterStartList = [];
+  private chapterEndList = [];
+  private chapterStart: number;
+  private chapterEnd: number;
+  private verseStartList = [];
+  private verseEndList = [];
+  private verseStart: number;
+  private verseEnd: number;
 
-  private books: Array<any> = [];
+  public progressStatus: number;
+  public progressMaxValue: number = 100;
+
+  // private books: Array<any> = [];
   private bible: Bible;
   private studyBible: StudyBible;
   private isDisplay: boolean = false;
-  private booklist = [];
-  private myInput : string = '';
+  // private booklist = [];
+  private myInput: string = '';
 
 
   constructor(private studiesService: StudiesService,
@@ -43,21 +54,116 @@ export class StudyInputPage {
     private navCtrl: NavController,
     public navParams: NavParams) {
 
-    this.bible = new Bible();
     this.studyBible = new StudyBible();
     this.studyBible.book = "Untitled Study";
-    this.books = this.bibleService.getAllBooksOfBible(BookType.OldAndNewTestament);
-    this.booklist = this.bibleService.getAllBooksOfBible(BookType.OldAndNewTestament);
-    console.log(this.booklist);
+    this.progressStatus = 0;
 
-    console.log("Result: " + this.navParams.get("bookId"));
-    console.log("Result: " + this.navParams.get("book"));
-    this.bible.book = this.myInput;
+    this.chapterStart = 0;
+    this.chapterEnd = 0;
+    // this.chapterStartList = this.getChapters();
+    // console.log(this.getChapters());
+
+
+    // this.bible = new Bible();
+    // console.log("Result: " + this.navParams.get("bookId"));
+    // console.log("Result: " + this.navParams.get("book"));
+    // this.bible.book = this.myInput;
   }
 
+  /**
+   * Checking Progress Status
+   */
+  public checkProgressStatus(): number {
+    if (this.progressMaxValue < this.progressStatus) {
+      this.progressStatus = 100;
+    }
+    return this.progressStatus;
+  }
+
+  /**
+   * Search Bible Book
+   */
   onSearch() {
-    console.log("safdsf");
-    this.studyBible.book = this.searchQuerybible;
+    if (this.bibleService.getBooksInfoOfBible(this.searchQuerybible) !== null) {
+      this.bible = this.bibleService.getBooksInfoOfBible(this.searchQuerybible);
+      this.studyBible.book = this.bible.book;
+      this.isDisplay = true;
+      //  console.log(this.bible);
+    }
+    if (this.bibleService.getBooksInfoOfBible(this.searchQuerybible) === null) {
+      this.studyBible.book = "Untitled Study";
+      this.isDisplay = false;
+      // console.log("Try Again!");
+      // console.log(this.isDisplay);
+      this.studyBible.book = "Untitled Study";
+    }
+
+    //call getChapter()
+    this.chapterStartList = this.getChapters();
+    this.chapterEndList = this.getChapters();
+  }
+
+  /**
+   * Get Number Only
+   * e.g. Input: Chapter 12
+   *      Return: 12
+   * 
+   * @param val 
+   * @return number
+   */
+  getNumberOnly(val: any): number {
+    let numb = val.toString().match(/\d/g);
+    val = Number(numb.toString().split(',').join(''));
+    return val;
+  }
+
+  test(val : any) {
+    console.log(val);
+  }
+
+  generateVerseFromChapterSelected() {
+    this.chapterEndList = this.getChapters();
+  }
+
+  getChapters(): number[] {
+    let num = this.getNumberOnly(this.chapterStart);
+    let cValue = [];
+    let value;
+    if (num != Number(0)) {
+      if (num > this.bible.chapters) {
+        cValue.push(0);
+        return cValue;
+      }
+      for (value = num; value <= this.bible.chapters; value++) {
+        cValue.push(value);
+      }
+      return cValue;
+    }
+
+    for (let value = 1; value <= this.bible.chapters; value++) {
+      cValue.push(value);
+    }
+    return cValue;
+  }
+
+  getVerses(chptr : any, chapterSelected : number) {
+    let vValue = [];
+    let vers : number = this.bible.verses[chptr - 1];
+    // console.log("vers: " + vers);
+
+    for(let x = 1; x <= vers; x++) {
+      vValue.push(x);
+    }
+    
+    switch(chapterSelected) {
+      case 1:
+        this.verseStartList = vValue;
+        break;
+      case 2:
+        this.verseEndList = vValue;
+      default:
+        break;
+    }
   }
 
   /**
@@ -67,47 +173,9 @@ export class StudyInputPage {
     this.studyBible.book = "";
   }
 
-  onClickAddStudy(value: { book: string }) {
-    //console.log("book: " + value.book);
-    if (this.bibleService.getBooksInfoOfBible(value.book) !== null) {
-      console.log("asdfsdf");
-      this.bible = this.bibleService.getBooksInfoOfBible(value.book);
-      this.studyBible.book = this.bible.book;
-      this.isDisplay = true;
-    }
-    if(this.bibleService.getBooksInfoOfBible(value.book) === null) {
-      console.log("Try Again!");
-      this.studyBible.book = "Untitled Study";
-      this.isDisplay = false;
-      
-    }
-  }
-  search() {
-    console.log("Try Again!");
-  }
-
-  onAddStudy(value: { title: string, gender: string }) {
-    this.studiesService.addStudy(value);
-    console.log("Value" + value + " : " + value.title);
-    this.navCtrl.pop()
-  }
-
-  onLoadPage(gotoPage: GotoPage) {
-
-    switch (gotoPage) {
-      case GotoPage.Menu:
-        this.navCtrl.push(MenuPage);
-        break;
-      case GotoPage.Home:
-        this.navCtrl.push(HomePage);
-        break;
-      case GotoPage.StudyInput:
-        this.navCtrl.push(StudyInputPage);
-        break;
-      default:
-        this.navCtrl.push(LoginPage);
-        break;
-    }
-  }
-
+  // onAddStudy(value: { title: string, gender: string }) {
+  //   this.studiesService.addStudy(value);
+  //   console.log("Value" + value + " : " + value.title);
+  //   this.navCtrl.pop()
+  // }
 }
