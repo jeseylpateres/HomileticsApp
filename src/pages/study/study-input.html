@@ -93,8 +93,10 @@
             (keyup)="0" 
             (ionCancel)="onClear()">
           </ion-searchbar> -->
-        <ion-searchbar type="search" name="book" placeholder="Bible Reference" [(ngModel)]="searchQuerybible" autocomplete="on" autocorrect="on"
+        <form>
+          <ion-searchbar type="search" name="book" placeholder="Bible Reference" [(ngModel)]="searchQuerybible" autocomplete="on" autocorrect="on"
           required (keyup)="0" (search)="onSearch()" (ionCancel)="onClear()">
+        </form>
         </ion-searchbar>
       </div>
       <div *ngIf="isDisplay">
